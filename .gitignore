@@ -1,3 +1,9 @@
+# MongoDB Files
+Mongodb-mount/
+# For Jetbrain
+.idea/
+# For Mac OS
+.DS_Store
 # Logs
 logs
 *.log
@@ -28,3 +34,4 @@ node_modules
 
 # Debug log from npm
 npm-debug.log
+public/images/
