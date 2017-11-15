@@ -1,0 +1,13 @@
+
+<nav class="navbar navbar-fixed-top" role="navigation">
+
+    <nav class = "navbar navbar-default pull-right">
+        <ul class="nav navbar-nav">
+            <li ng-hide="isLoggedIn()"><a ui-sref="login">登陆</a></li>
+            <li ng-hide="isLoggedIn()"><a ui-sref="register">注册</a></li>
+            <li ng-show="isLoggedIn()"><a ui-sref="nav.main">{{currentUser()}}</a></li>
+        </ul>
+    </nav>
+
+</nav>
+
