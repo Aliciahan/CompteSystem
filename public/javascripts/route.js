@@ -1,5 +1,3 @@
-
-
 angular.module('frontapp').config(
    function($stateProvider, $interpolateProvider, $urlRouterProvider){
     $interpolateProvider.startSymbol('{{');
@@ -8,8 +6,8 @@ angular.module('frontapp').config(
 
     $stateProvider
       .state('nav',{
-        url: '',
-        templateUrl: 'templates/navbar.html',
+        url: '/nav',
+        templateUrl: './templates/navbar.html',
         controller: 'NavCtrl'
       });
 
@@ -17,5 +15,4 @@ angular.module('frontapp').config(
 
   }
 );
-
 

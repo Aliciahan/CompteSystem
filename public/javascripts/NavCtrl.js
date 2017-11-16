@@ -8,6 +8,5 @@ angular.module('frontapp').controller('NavCtrl',['$scope','auth', function($scop
   $scope.logOut = auth.logOut;
 
 
-
 }]);
 
