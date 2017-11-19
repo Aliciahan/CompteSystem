@@ -55,4 +55,6 @@ Then all the Data persistent will be saved to ./Mongodb-mount
 
 In a production mode, run docker-compose -d up letting the container run in background. 
 
+swagger docs url:
+http://localhost:3000/api-docs/
 
