@@ -15,10 +15,46 @@ router.post('/',
 
 //查看所有汇票
 router.get('/',getPiaos);
+//查看某一个汇票 使用汇票的票号
+router.get('/piaoid',getPiaoByPiaohao);
+//查看某个汇票, 使用汇票系统分配的ID
+router.get('/:id', getPiaoById );
+router.put('/:id', updatePiao);
+router.delete('/:id', deletePiaoById);
 
-router.get('/piaoid',getPiaoById);
 
 function getPiaoById(req,res,next){
+  Piao.findById(req.params.id,function(err, piao){
+    if(err) next(err);
+    res.json(piao);
+  })
+}
+
+
+function deletePiaoById(req,res,next) {
+  Piao.findByIdAndRemove(req.params.id, function(err, piao){
+    if(err) next(err);
+    res.json(piao);
+  })
+}
+
+function updatePiao(req,res,next){
+
+  var changes = req.body;
+
+  delete changes._id;
+  delete changes.__v;
+  delete changes.addDate;
+
+
+  Piao.findByIdAndUpdate({_id:req.params.id},changes,{new:true, upsert:false, runValidators:true}, function onChangementTaken(err, piao){
+    if(err) next(err);
+    res.json(piao);
+  });
+}
+
+
+function getPiaoByPiaohao(req,res,next){
   Piao.findOne({'idNum': req.query.idNum}).exec(function onPiaoFound(error, piao){
     if (error) return next(error);
     if (!piao) {

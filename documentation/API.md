@@ -11,6 +11,8 @@
     - [1.1 票据的录入](#piao-insert)
     - [1.2 票据的获取](#piao-get)
     - [1.3 由票据单号查询票据](#piao-get-by-Name)
+    - [1.4 由MongoDB分配的id查询票据](#piao-get-by-id)
+    - [1.5 从:id修改票据](#piao-update)
 - [2 用户](#user)
 
 ---
@@ -102,5 +104,91 @@ curl "http://localhost:3000/piao?page=2&n=5&order=idNum-desc"
 curl "http://localhost:3000/piao/piaoid?idNum=8982"
 ~~~
 
+
+<h3 id="piao-get-by-id">1.4 由MongoDB分配的id查询票据 </h3>
+
+**Access Point** :
+
+| Method | Path | 
+|:----------------:|:----------------:|
+| GET | /piao/\_id |
+
+
+**Parameters** :
+
+| Attribute | Description | Example |
+|:----------------:|:----------------:|:-----------:|
+| \_id | MongoDB票据号 | 5a1af2c9b047ea511545065c |
+
+
+**Examples:**
+
+~~~bash
+curl http://localhost:3000/piao/5a1af2c9b047ea511545065c | jq .
+
+{
+  "_id": "5a1af2c9b047ea511545065c",
+  "idNum": "8982",
+  "bank": "ICBC",
+  "type": "dianpiao",
+  "amount": 18681,
+  "endDate": "1970-01-18T11:55:15.944Z",
+  "__v": 0,
+  "addDate": "1970-01-18T11:55:15.527Z"
+}curl "http://localhost:3000/piao/piaoid?idNum=8982"
+~~~
+
+
+
+<h3 id="piao-update"> 1.5 从:id修改票据 </h3>
+
+**Access Point** :
+
+| Method | Path | 
+|:----------------:|:----------------:|
+| PUT | /piao/\_id |
+
+
+**Parameters** :
+
+| Attribute | Description | Example |
+|:----------------:|:----------------:|:-----------:|
+| All The Changed Fields | 所有被改动的项目 | {"_id":"5a1af2c9b047ea511545065c","idNum":"8982","bank":"LCF","type":"dianpiao","amount":18681,"endDate":"1970-01-18T11:55:15.944Z","__v":0,"addDate":"1970-01-18T11:55:15.527Z"} |
+
+
+**Examples:**
+
+~~~bash
+curl -X PUT "http://localhost:3000/piao/5a1af2c9b047ea511545065c" \
+    -H "Content-Type: application/json" \
+    -d '{ "_id": "5a1af2c9b047ea511545065c", "idNum": "8982", "bank": "LCF", "type": "dianpiao","amount": 18681,"endDate": "1970-01-18T11:55:15.944Z","__v": 0,"addDate": "1970-01-18T11:55:15.527Z"}'
+~~~
+
+<h3 id="piao-delete"> 1.6 删除票据 </h3>
+
+**Access Point** :
+
+| Method | Path | 
+|:----------------:|:----------------:|
+| DELETE | /piao/\_id |
+
+
+**Parameters** :
+
+| Attribute | Description | Example |
+|:----------------:|:----------------:|:-----------:|
+| NULL | NULL | NULL |
+
+
+**Examples:**
+
+
+~~~bash
+curl -X DELETE "http://localhost:3000/piao/5a1af2c9b047ea511545065c"
+
+{"_id":"5a1af2c9b047ea511545065c","idNum":"8982","bank":"LCF","type":"dianpiao","amount":18681,"endDate":"1970-01-18T11:55:15.944Z","__v":0,"addDate":"1970-01-18T11:55:15.527Z"}MBP-de-XICUN:UsefulScripts xicunhan$ curl -X GET "http://localhost:3000/piao/5a1af2c9b047ea511545065c"
+
+null
+~~~
 
 
