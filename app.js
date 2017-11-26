@@ -32,6 +32,7 @@ var apiLimiter = new RateLimit({
 //Declare routes
 var index = require('./routes/index');
 var users = require('./routes/users');
+var piaos = require('./routes/piao');
 
 var app = express();
 app.enable('strict routing');
@@ -79,6 +80,7 @@ app.use(bodyParser.raw({
 
 app.use('/', static_files);
 app.use('/users', users);
+app.use('/piao', piaos);
 
 app.get('/', function redirectToAdmin(req, res, next) {
     res.redirect('public/');
