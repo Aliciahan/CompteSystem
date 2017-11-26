@@ -16,6 +16,20 @@ router.post('/',
 //查看所有汇票
 router.get('/',getPiaos);
 
+router.get('/piaoid',getPiaoById);
+
+function getPiaoById(req,res,next){
+  Piao.findOne({'idNum': req.query.idNum}).exec(function onPiaoFound(error, piao){
+    if (error) return next(error);
+    if (!piao) {
+      var err = new Error ('Not found');
+      err.status= 404;
+      return next(err);
+    }
+    res.json(piao);
+  })
+}
+
 
 
 function createPiao(req, res, next) {
