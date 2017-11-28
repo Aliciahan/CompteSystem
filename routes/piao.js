@@ -2,16 +2,21 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Piao = require('../models/piao');
+var url = require('url');
 
 var Utils = require('../modules/utils');
+
+var PendingUpload = require('../models/pending_upload');
+
+var config = require('../config.json');
 
 
 
 //进行汇票录入
 router.post('/',
   createPiao,
-  Utils.send
-);
+  Utils.cleanEntityToSend(),
+  Utils.send);
 
 //查看所有汇票
 router.get('/',getPiaos);
@@ -70,7 +75,28 @@ function getPiaoByPiaohao(req,res,next){
 
 function createPiao(req, res, next) {
   var piao = new Piao(req.body);
-  piao.save(Utils.returnSavedEntity(req,res,next,201));
+  if(!req.body.setHeaderPhoto) {
+    piao.save(Utils.returnSavedEntity(req, res, next, 201));
+  }else {
+    piao.validate(function onPiaoValidated(err){
+      if(err) return next(err);
+
+      var pendingUpload = new PendingUpload({
+        contentType: "piao",
+        content: piao
+      });
+     pendingUpload.save(sendUploadURL);
+    });
+  }
+
+  function sendUploadURL(error, pendingUpload){
+    if(error) next(error);
+
+    var uploadPath = '/upload/'+pendingUpload._id;
+    var uploadURL = url.resolve(config.serverURL, uploadPath);
+    console.log('uploadURL:'+uploadURL.toString());
+    res.redirect(204, uploadURL);
+  }
 }
 
 
