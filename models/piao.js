@@ -14,7 +14,8 @@ var piaoSchema = new Schema({
   },
   amount: {type: Number, required: true},
   endDate: {type: Date, required: true},
-  addDate: {type: Date, default: Date.now(), required: true}
+  addDate: {type: Date, default: Date.now(), required: true},
+  headerPhoto: {type: String}
   //addEmployee: {type: Schema.Types.ObjectId, required: true}
 });
 

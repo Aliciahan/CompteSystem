@@ -78,9 +78,12 @@ app.use(bodyParser.raw({
     limit: '5MB'
 }));
 
+var upload = require('./routes/upload');
 app.use('/', static_files);
 app.use('/users', users);
 app.use('/piao', piaos);
+app.use('/upload/',upload);
+app.use('/uploads/',uploads);
 
 app.get('/', function redirectToAdmin(req, res, next) {
     res.redirect('public/');
