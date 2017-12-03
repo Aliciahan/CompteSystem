@@ -4,6 +4,64 @@
 
 var app = angular.module('frontapp', ["ui.router", "ui.bootstrap", "ngAnimate", "ngSanitize", "base64"]);
 
+
+app.directive('fileModel', ['$parse', function ($parse) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      var model = $parse(attrs.fileModel);
+      var modelSetter = model.assign;
+
+      element.bind('change', function(){
+        scope.$apply(function(){
+          modelSetter(scope, element[0].files[0]);
+        });
+      });
+    }
+  };
+}]);
+
+
+
+
+
+app.factory('fileReader', ["$q", "$log", function($q, $log) {
+  var onLoad = function(reader, deferred, scope) {
+    return function() {
+      scope.$apply(function() {
+        deferred.resolve(reader.result);
+      });
+    }
+  }
+
+  var onError = function(reader, deferred, scope) {
+    return function() {
+      scope.$apply(function() {
+        deferred.reject(reader.result);
+      });
+    };
+  };
+
+  var getReader = function(deferred, scope) {
+    var reader = new FileReader();
+    reader.onload = onLoad(reader, deferred, scope);
+    reader.onerror = onError(reader, deferred, scope);
+    return reader;
+  };
+
+  var readAsDataURL = function(file, scope) {
+    var deferred = $q.defer();
+    var reader = getReader(deferred, scope);
+    reader.readAsDataURL(file);
+    return deferred.promise;
+  };
+
+  return {
+    readAsDataUrl: readAsDataURL
+  };
+}
+]);
+
 app.factory('auth', ['$http', '$window', function ($http, $window){
 
   var auth = {};
@@ -39,14 +97,14 @@ app.factory('auth', ['$http', '$window', function ($http, $window){
   };
 
   auth.register = function (user){
-    return $http.post('http://localhost:3000/user/register', user).onSuccess(function(data){
+    return $http.post('http://localhost:3000/user/register', user).success(function(data){
       auth.saveToken(data.token);
     });
   };
 
 
   auth.logIn = function(user){
-    return $http.post('http://localhost:3000/user/login',user).onSuccess(function(data){
+    return $http.post('http://localhost:3000/user/login',user).success(function(data){
       auth.saveToken(data.token);
     });
   };
@@ -57,4 +115,57 @@ app.factory('auth', ['$http', '$window', function ($http, $window){
   };
 
   return auth;
+}]);
+
+
+app.factory('Piao', ['$http','$base64',function($http, $base64){
+  var piaoObject = {
+    piaos : []
+  };
+
+  piaoObject.getAll = function(){
+    return $http.get('../piao').success(function(data){
+      angular.copy(data, piaoObject.piaos)
+    });
+  };
+
+  piaoObject.create = function(place){
+    return $http.post('../piao', place).success(function(data){
+      piaoObject.piaos.push(data);
+    });
+  };
+
+  piaoObject.createPhoto = function(piao, picBin){
+    return $http.post('../piao', piao)
+      .then(function(res){
+      var sendUrl = '../upload/'+res.headers("Location").toString().split('/').pop();
+      console.log("sendUrl :"+ sendUrl);
+        console.log("picbin :"+ picBin.name);
+      var fd = new FormData();
+      fd.append('file', picBin );
+      var ct = "image/";
+      if ( picBin.name.split('.').pop()==='jpeg'|| picBin.name.split('.').pop()==='jpg' ){
+        ct += 'jpeg'
+      } else {
+        ct+='png'
+      }
+      picBin.name = '@'+picBin.name;
+      $http({
+        method: "PUT",
+        url: sendUrl,
+        data: picBin,
+        headers: {
+          "Content-Type": ct
+        }
+      })
+        .then(function(res){
+          piaoObject.piaos.push(res.data);
+          console.log("upload success");
+        },
+        function myError() {
+          console.log("error");
+        });
+    });
+  };
+  return piaoObject;
 }]);
