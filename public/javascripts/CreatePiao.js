@@ -1,5 +1,11 @@
 
-app.controller('CreatePiao', ['$scope','$http','Piao', function($scope, $http, Piao){
+app.controller('CreatePiao', ['$scope','$http','Piao','$uibModal', function($scope, $http, Piao, $uibModal){
+
+  $scope.piaos = Piao.piaos;
+
+  $scope.isEmpty = function(){
+    return !(Piao.piaos.length >0);
+  };
 
   $scope.uploadingPiao = {
     "idNum": "请填写票号",
@@ -28,7 +34,7 @@ app.controller('CreatePiao', ['$scope','$http','Piao', function($scope, $http, P
         "endDate": $scope.uploadingPiao.endDate,
         "addDate": $scope.uploadingPiao.addDate,
         "setHeaderPhoto": true
-      }, $scope.myfile);
+      }, $scope.myfile)
     }else{
       Piao.create({
         "idNum": $scope.uploadingPiao.idNum,
@@ -37,9 +43,34 @@ app.controller('CreatePiao', ['$scope','$http','Piao', function($scope, $http, P
         "amount": $scope.uploadingPiao.amount,
         "endDate": $scope.uploadingPiao.endDate,
         "addDate": $scope.uploadingPiao.addDate
-      });
+      }).then(open());
     }
+
   };
+
+//pop up
+
+  $scope.open = function (size, parentSelector) {
+    var parentElem = parentSelector ?
+      angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+    var modalInstance = $uibModal.open({
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      controllerAs: '$ctrl',
+      size: 'lg',
+      appendTo: parentElem,
+      resolve: {
+        Promise: ['Piao', function (Piao) {
+          return Piao.piaos;
+        }]
+      }
+    });
+
+  };
+
 
   // About the date directive
   $scope.today= function(){

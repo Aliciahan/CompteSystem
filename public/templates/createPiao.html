@@ -1,6 +1,54 @@
 
 
 
+<script type="text/ng-template" id="myModalContent.html">
+
+
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">上传情况通告</h3>
+    </div>
+
+    <div class="modal-body" id="modal-body">
+        <table>
+            <tr>
+                <td>票号: </td>
+                <td>{{pendingPiao.idNum}}</td>
+            </tr>
+
+            <tr>
+                <td>银行: </td>
+                <td>{{pendingPiao.bank}}</td>
+            </tr>
+            <tr>
+                <td>种类: </td>
+                <td>{{pendingPiao.type}}</td>
+            </tr>
+            <tr>
+                <td>金额: </td>
+                <td>{{pendingPiao.amount}}</td>
+            </tr>
+            <tr>
+                <td>加入时间: </td>
+                <td>{{pendingPiao.addDate}}</td>
+            </tr>
+            <tr>
+                <td>到期时间: </td>
+                <td>{{pendingPiao.endDate}}</td>
+            </tr>
+        </table>
+
+        <img width="100%" hight="100%" src="{{pendingPiao.headerPhoto}}"/>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.continue()">继续上传其它票据</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.exit()">离开页面</button>
+    </div>
+</script>
+
+
+
+
 <div>
     <h4>请填入票面数据</h4>
 
@@ -34,6 +82,7 @@
         <button type="button" class="btn btn-sm btn-info" ng-click="today()">今日</button>
         <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">清空</button>
         <button type="button" class="btn btn-sm btn-success" ng-click="save()">保存</button>
+        <button type="button" class="btn btn-sm btn-success" ng-hide="isEmpty()" ng-click="open()">检查最近一次上传的票据</button>
     </form>
 
     <!--

@@ -2,7 +2,7 @@
 //Here I put all the data modules of what we are going to use.
 
 
-var app = angular.module('frontapp', ["ui.router", "ui.bootstrap", "ngAnimate", "ngSanitize", "base64"]);
+var app = angular.module('frontapp', ['ui.router', 'ngAnimate', 'ngSanitize', 'base64', 'ui.bootstrap']);
 
 
 app.directive('fileModel', ['$parse', function ($parse) {
@@ -132,15 +132,18 @@ app.factory('Piao', ['$http','$base64',function($http, $base64){
   piaoObject.create = function(place){
     return $http.post('../piao', place).success(function(data){
       piaoObject.piaos.push(data);
+      alert("上传成功, 你可以点击右下方按钮查看");
     });
   };
 
   piaoObject.createPhoto = function(piao, picBin){
-    return $http.post('../piao', piao)
+    return $http({
+      method: "POST",
+      url: "../piao",
+      data: piao
+    })
       .then(function(res){
       var sendUrl = '../upload/'+res.headers("Location").toString().split('/').pop();
-      console.log("sendUrl :"+ sendUrl);
-        console.log("picbin :"+ picBin.name);
       var fd = new FormData();
       fd.append('file', picBin );
       var ct = "image/";
@@ -150,6 +153,7 @@ app.factory('Piao', ['$http','$base64',function($http, $base64){
         ct+='png'
       }
       picBin.name = '@'+picBin.name;
+      console.log("sendUrl :"+ sendUrl);
       $http({
         method: "PUT",
         url: sendUrl,
@@ -161,9 +165,11 @@ app.factory('Piao', ['$http','$base64',function($http, $base64){
         .then(function(res){
           piaoObject.piaos.push(res.data);
           console.log("upload success");
+          alert("上传成功, 你可以点击右下方按钮查看");
         },
-        function myError() {
+        function myError(res) {
           console.log("error");
+          alert("上传失败"+res.data.toString());
         });
     });
   };
