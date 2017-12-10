@@ -23,9 +23,8 @@ app.controller('CreatePiao', ['$scope','$http','Piao','$uibModal', function($sco
   $scope.save = function() {
 
 
-    if ( $scope.myfile !== null) {
+    if ($scope.myfile) {
       console.log("with pictures"+console.dir($scope.myfile));
-
       Piao.createPhoto({
         "idNum": $scope.uploadingPiao.idNum,
         "bank": $scope.uploadingPiao.bank,
@@ -43,7 +42,7 @@ app.controller('CreatePiao', ['$scope','$http','Piao','$uibModal', function($sco
         "amount": $scope.uploadingPiao.amount,
         "endDate": $scope.uploadingPiao.endDate,
         "addDate": $scope.uploadingPiao.addDate
-      }).then(open());
+      });
     }
 
   };
@@ -84,6 +83,7 @@ app.controller('CreatePiao', ['$scope','$http','Piao','$uibModal', function($sco
     $scope.uploadingPiao.endDate = null;
     $scope.uploadingPiao.bank = null;
     $scope.uploadingPiao.idNum = null;
+    $scope.myfile= null;
   };
 
   $scope.inlineOptions = {

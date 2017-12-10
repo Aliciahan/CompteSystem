@@ -129,10 +129,16 @@ app.factory('Piao', ['$http','$base64',function($http, $base64){
     });
   };
 
-  piaoObject.create = function(place){
-    return $http.post('../piao', place).success(function(data){
-      piaoObject.piaos.push(data);
+  piaoObject.create = function(piao){
+    return $http({
+      method: "POST",
+      url: "../piao",
+      data: piao
+    }).then(function(res){
+      piaoObject.piaos.push(res.data);
       alert("上传成功, 你可以点击右下方按钮查看");
+    }, function(res){
+      alert("上传失败" + res.data.toString());
     });
   };
 
