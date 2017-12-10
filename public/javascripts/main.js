@@ -131,7 +131,7 @@ app.factory('Piao', ['$http','$base64',function($http, $base64){
     }).then(function(res){
       alert("Deleted!");
       for(var i = (piaoObject.piaos.length -1); i>=0; i--){
-        if(piaoObject.piaos[i] === res.data){
+        if(piaoObject.piaos[i]._id === res.data._id){
           console.log('index of piao :'+i.toString());
           piaoObject.piaos.splice(i,1);
         }

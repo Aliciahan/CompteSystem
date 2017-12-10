@@ -41,7 +41,7 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     <!--<script src="libs/ui-bootstrap-tpls.js"></script>-->
-    <!--<link ref="stylesheet" href="libs/ui-bootstrap-csp.css">-->
+    <link ref="stylesheet" href="libs/ui-bootstrap-csp.css">
 
 
     <title>华栩金融业务管理系统</title>
@@ -67,14 +67,61 @@
     }
 
     .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
-</style>
+    </style>
+    <link rel="stylesheet" href="./stylesheets/user.css">
 
 </head>
 
 <body ng-app="frontapp">
 <div>
-  <p> Here IS 伪 NAV-Bar 阿拉啦啦啦啦啦啦 </p>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" ui-sref="home">华栩金融</a>
+            </div>
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="create">录入票</a></li>
+                    <li><a ui-sref="viewcurrent">查看汇票</a></li>
+                </ul>
+            <nav class="nav navbar-nav pull-right">
+                <ul class="nav navbar-nav ">
+                    <li ng-hide="isLoggedIn()"><a ui-sref="login">登陆</a></li>
+                    <li ng-hide="isLoggedIn()"><a ui-sref="register">注册</a></li>
+                    <li ng-show="isLoggedIn()"><a ui-sref="nav.regclient.views"> {[{ currentUser() }]} </a></li>
+                    <li ng-show="isLoggedIn()"><a ui-sref="nav" ng-click="logOut()">登出</a></li>
+                </ul>
+            </nav>
+        </div>
+    </nav>
+</div>
+
+
 <div>
-<ui-view></ui-view>
+    <ui-view>
+        <div class="jumbotron text-center">
+            <h1>华栩金融 汇票统计系统</h1>
+            <p>让你的对账时间更少, 喝茶聊天的时间更多!</p>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h3>汇票录入1</h3>
+                    <p>随时随地使用手机/电脑录入汇票</p>
+
+                </div>
+                <div class="col-sm-4">
+                    <h3>汇票速查</h3>
+                    <p>便利的统计汇票信息, 让本系统节省您的计算时间</p>
+                </div>
+                <div class="col-sm-4">
+                    <h3>一键检测</h3>
+                    <p>检测汇票有效性, 仅需1Click!</p>
+                </div>
+            </div>
+        </div>
+    </ui-view>
+</div>
+
 </body>
 </html>

@@ -5,12 +5,12 @@ app.config(
     $interpolateProvider.endSymbol('}}');
 
 
-    // $stateProvider
-    //   .state('nav',{
-    //     url: '/nav',
-    //     templateUrl: './templates/navbar.html',
-    //     controller: 'NavCtrl'
-    //   });
+    $stateProvider
+      .state('home',{
+        url: '/',
+        templateUrl: "./templates/home.html",
+        controller: 'NavCtrl'
+      });
 
     $stateProvider
      .state('piao', {
@@ -39,7 +39,7 @@ app.config(
        });
 
 
-    $urlRouterProvider.otherwise('create')
+    $urlRouterProvider.otherwise('/')
 
   }
 );
