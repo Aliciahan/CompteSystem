@@ -17,7 +17,10 @@ router.post('/',
     Utils.send);
 
 //查看所有汇票
-router.get('/', getPiaos);
+
+router.get('/',getPiaos);
+//查看所有有效的
+router.get('/currentpiaos', getCurrentPiaos);
 
 //查看某一个汇票 使用汇票的票号
 router.get('/piaoid', getPiaoByPiaohao);
@@ -95,35 +98,34 @@ function createPiao(req, res, next) {
 }
 
 
-function getPiaos(req, res, next) {
-    var order = 'addDate';
-    var page = 1;
-    var n = 0;
+function getPiaos(req,res,next) {
+  var order = 'addDate';
+  var page = 1;
+  var n = 0;
 
-    if (req.query.order) {
-        switch (req.query.order) {
-            case 'add-date-desc': //  Date d'ajout Descendant
-                break;
-            case 'add-date-ace':
-                order = '-addDate';
-                break;
-            case 'idNum-desc':
-                order = "idNum";
-                break;
-            case 'idNum-ace':
-                order = "-idNum";
-                break;
-            case 'endDate-desc':
-                order = 'endDate';
-                break;
-            case 'endDate-ace':
-                order = '-endDate';
-                break;
-            default:
-                var err = new Error('Bad Request: order shoud in [add-date-desc, add-date-ace, idNum-desc, idNum-ace, endDate-desc, endDate-ace]');
-                err.status = 400;
-                return next(err);
-        }
+  if (req.query.order) {
+    switch (req.query.order) {
+      case 'add-date-desc': //  Date d'ajout Descendant
+        break;
+      case 'add-date-ace':
+        order = '-addDate';
+        break;
+      case 'idNum-desc':
+        order = "idNum";
+        break;
+      case 'idNum-ace':
+        order = "-idNum";
+        break;
+      case 'endDate-desc':
+        order = 'endDate';
+        break;
+      case 'endDate-ace':
+        order = '-endDate';
+        break;
+      default:
+        var err = new Error('Bad Request: order shoud in [add-date-desc, add-date-ace, idNum-desc, idNum-ace, endDate-desc, endDate-ace]');
+        err.status = 400;
+        return next(err);
     }
 
 
@@ -142,30 +144,88 @@ function getPiaos(req, res, next) {
         }
         n = 25;
     }
+  }
 
-    // Check Page Number
-    if (req.query.n) {
-        n = parseInt(req.query.n);
-        if (isNaN(page)) {
-            var err = new Error('N should be strictly be integer');
-            err.status = 400;
-            return next(err);
-        }
-        if (page <= 0) {
-            var err = new Error('N should be strictly be positive');
-            err.status = 400;
-            return next(err);
-        }
+  Piao.find({}, {idNum: true, bank: true, type: true, amount: true, endDate: true, addDate:true, isSold: true, soldDate: true})
+    .sort(order)
+    .skip((page-1)*n)
+    .limit(n)
+    .exec(function returnPiaos(error, users){
+      if (error) return next(error);
+      res.json(users)
+    });
+}
+
+function getCurrentPiaos(req,res,next) {
+  var order = 'addDate';
+  var page = 1;
+  var n = 0;
+
+  if (req.query.order) {
+    switch (req.query.order) {
+      case 'add-date-desc': //  Date d'ajout Descendant
+        break;
+      case 'add-date-ace':
+        order = '-addDate';
+        break;
+      case 'idNum-desc':
+        order = "idNum";
+        break;
+      case 'idNum-ace':
+        order = "-idNum";
+        break;
+      case 'endDate-desc':
+        order = 'endDate';
+        break;
+      case 'endDate-ace':
+        order = '-endDate';
+        break;
+      default:
+        var err = new Error('Bad Request: order shoud in [add-date-desc, add-date-ace, idNum-desc, idNum-ace, endDate-desc, endDate-ace]');
+        err.status = 400;
+        return next(err);
     }
+  }
 
-    Piao.find({}, { idNum: true, bank: true, type: true, amount: true, endDate: true, addDate: true })
-        .sort(order)
-        .skip((page - 1) * n)
-        .limit(n)
-        .exec(function returnPiaos(error, users) {
-            if (error) return next(error);
-            res.json(users)
-        });
+  // Split Pages
+  if (req.query.page) {
+    page = parseInt(req.query.page);
+    if (isNaN(page)) {
+      var err = new Error('Page should be strictly be integer');
+      err.status = 400;
+      return next(err);
+    }
+    if (page <= 0) {
+      var err = new Error('Page should be strictly be positive');
+      err.status = 400;
+      return next(err);
+    }
+    n = 25;
+  }
+
+  // Check Page Number
+  if (req.query.n) {
+    n = parseInt(req.query.n);
+    if (isNaN(page)) {
+      var err = new Error('N should be strictly be integer');
+      err.status = 400;
+      return next(err);
+    }
+    if (page <= 0) {
+      var err = new Error('N should be strictly be positive');
+      err.status = 400;
+      return next(err);
+    }
+  }
+
+  Piao.find({'isSold': { "$in": ["false", false]}}, {idNum: true, bank: true, type: true, amount: true, endDate: true, addDate:true, isSold: true, soldDate: true})
+    .sort(order)
+    .skip((page-1)*n)
+    .limit(n)
+    .exec(function returnPiaos(error, users){
+      if (error) return next(error);
+      res.json(users)
+    });
 }
 
 module.exports = router;
