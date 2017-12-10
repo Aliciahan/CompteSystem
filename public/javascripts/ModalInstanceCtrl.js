@@ -1,4 +1,5 @@
 app.controller('ModalInstanceCtrl', function($uibModalInstance, Piao, $http, $scope){
+
   var $ctrl = this;
   $ctrl.pendingPiao = {
     "idNum": "---",
@@ -10,6 +11,7 @@ app.controller('ModalInstanceCtrl', function($uibModalInstance, Piao, $http, $sc
   };
 
   $ctrl.Committed = false;
+
 
   $http({
     method: "GET",

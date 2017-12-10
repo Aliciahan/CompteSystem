@@ -120,7 +120,27 @@ app.factory('auth', ['$http', '$window', function ($http, $window){
 
 app.factory('Piao', ['$http','$base64',function($http, $base64){
   var piaoObject = {
-    piaos : []
+    piaos : [],
+    one: {}
+  };
+
+  piaoObject.delOneById = function(piaoId){
+    $http({
+      method: "DELETE",
+      url: '../piao/'+piaoId.toString()
+    }).then(function(res){
+      alert("Deleted!");
+      for(var i = (piaoObject.piaos.length -1); i>=0; i--){
+        if(piaoObject.piaos[i] === res.data){
+          console.log('index of piao :'+i.toString());
+          piaoObject.piaos.splice(i,1);
+        }
+      }
+      return res.data;
+    }, function(res){
+      alert("Error Delete Please make a phone call to Zhifu for solution~~");
+      return res.data;
+    })
   };
 
   piaoObject.getAll = function(){
@@ -137,6 +157,14 @@ app.factory('Piao', ['$http','$base64',function($http, $base64){
     }, function(res){
       console.log(res.data.toString());
     });
+  };
+
+  piaoObject.getById = function(piaoid){
+    $http.get('../piao/'+piaoid.toString()).then(function(res){
+      angular.copy(res.data, piaoObject.one);
+    }, function(res){
+      console.log("error:"+res.data);
+    })
   };
 
   piaoObject.create = function(piao){
