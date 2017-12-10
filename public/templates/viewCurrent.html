@@ -10,44 +10,45 @@
         <table>
             <tr>
                 <td>票号: </td>
-                <td>{{focusingPiao.idNum}}</td>
+                <td>{{currentPiao.idNum}}</td>
             </tr>
 
             <tr>
                 <td>银行: </td>
-                <td>{{focusingPiao.bank}}</td>
+                <td>{{currentPiao.bank}}</td>
             </tr>
             <tr>
                 <td>种类: </td>
-                <td>{{focusingPiao.type}}</td>
+                <td>{{currentPiao.type}}</td>
             </tr>
             <tr>
                 <td>金额: </td>
-                <td>{{focusingPiao.amount}}</td>
+                <td>{{currentPiao.amount}}</td>
             </tr>
             <tr>
                 <td>加入时间: </td>
-                <td>{{focusingPiao.addDate}}</td>
+                <td>{{currentPiao.addDate}}</td>
             </tr>
             <tr>
                 <td>到期时间: </td>
-                <td>{{focusingPiao.endDate}}</td>
+                <td>{{currentPiao.endDate}}</td>
             </tr>
             <tr>
                 <td>已经卖出否:</td>
-                <td>{{focusingPiao.isSold}}</td>
+                <td>{{currentPiao.isSold}}</td>
             </tr>
             <tr>
                 <td>卖出日期:</td>
-                <td>{{focusingPiao.soldDate}}</td>
+                <td>{{currentPiao.soldDate}}</td>
             </tr>
         </table>
 
-        <img width="100%" hight="100%" src="{{focusingPiao.headerPhoto}}"/>
+        <img width="100%" hight="100%" src="{{currentPiao.headerPhoto}}"/>
+
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="$ctrl.continue()">返回</button>
-        <button class="btn btn-warning" type="button" ng-click="$ctrl.exit()">功能待定</button>
+        <button class="btn btn-primary" type="button" ng-click="continue()">返回</button>
+        <button class="btn btn-warning" type="button" ng-click="getpiao()">功能待定</button>
     </div>
 </script>
 
@@ -80,9 +81,9 @@
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
                     <li role="menuitem">出库</li>
                     <li role="menuitem">修改</li>
-                    <li role="menuitem">删除</li>
+                    <li role="menuitem" ng-click="delPiao(piao._id)">删除</li>
                     <li class="divider"></li>
-                    <li role="menuitem">查看</li>
+                    <li role="menuitem" ng-click="popupDetail(piao._id)">查看</li>
                 </ul>
             </div>
 

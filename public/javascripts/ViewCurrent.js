@@ -20,7 +20,35 @@ app.controller('ViewCurrent', ['$scope','$http', 'Piao', '$uibModal', function($
   };
 
   $scope.getFocus = function(piaoId){
-    Piao.getById()
+    $scope.focusingPiao = Piao.getById(piaoId);
+  };
+
+
+  $scope.popupDetail = function (piaoId) {
+    var parentElem = undefined;
+    var modalInst = $uibModal.open({
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      templateUrl: 'viewSinglePiao.html',
+      controller: 'ViewCurrentCtrl',
+      size: 'lg',
+      scope: $scope,
+      resolve: {
+        item: function(){
+          return piaoId;
+        }
+      }
+    });
+
+  };
+
+  $scope.delPiao = function(piaoId){
+    if(confirm('你确定一定以及肯定么?')){
+      Piao.delOneById(piaoId);
+    } else {
+
+    }
   }
 
 
