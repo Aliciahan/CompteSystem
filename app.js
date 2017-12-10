@@ -82,8 +82,8 @@ var upload = require('./routes/upload');
 app.use('/', static_files);
 app.use('/users', users);
 app.use('/piao', piaos);
-app.use('/upload/',upload);
-app.use('/uploads/',uploads);
+app.use('/upload/', upload);
+app.use('/uploads/', uploads);
 
 app.get('/', function redirectToAdmin(req, res, next) {
     res.redirect('public/');
@@ -91,6 +91,10 @@ app.get('/', function redirectToAdmin(req, res, next) {
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', router);
+// route for add kucun
+app.get('/kc', function(req, res) {
+    res.redirect('kucun.html');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
