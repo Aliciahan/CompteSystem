@@ -13,7 +13,9 @@ app.controller('CreatePiao', ['$scope','$http','Piao','$uibModal', function($sco
     "type": "dianpiao",
     "amount": 8888,
     "endDate": "1970-01-18T11:55:31.965Z",
-    "addDate": "1970-01-18T11:55:15.668Z"
+    "addDate": "1970-01-18T11:55:15.668Z",
+    "isSold": false,
+    "soldDate": "1970-01-18T11:55:15.668Z"
   };
 
 
@@ -32,7 +34,10 @@ app.controller('CreatePiao', ['$scope','$http','Piao','$uibModal', function($sco
         "amount": $scope.uploadingPiao.amount,
         "endDate": $scope.uploadingPiao.endDate,
         "addDate": $scope.uploadingPiao.addDate,
-        "setHeaderPhoto": true
+        "setHeaderPhoto": true,
+        "isSold": $scope.uploadingPiao.isSold,
+        "soldDate": $scope.uploadingPiao.soldDate
+
       }, $scope.myfile)
     }else{
       Piao.create({
@@ -41,11 +46,22 @@ app.controller('CreatePiao', ['$scope','$http','Piao','$uibModal', function($sco
         "type": $scope.uploadingPiao.type,
         "amount": $scope.uploadingPiao.amount,
         "endDate": $scope.uploadingPiao.endDate,
-        "addDate": $scope.uploadingPiao.addDate
+        "addDate": $scope.uploadingPiao.addDate,
+        "isSold": $scope.uploadingPiao.isSold,
+        "soldDate": $scope.uploadingPiao.soldDate
       });
     }
 
   };
+
+  $scope.setSold = function(){
+    $scope.uploadingPiao.isSold = true;
+  };
+
+  $scope.cancelSold = function(){
+    $scope.uploadingPiao.isSold = false;
+  };
+
 
 //pop up
 
@@ -76,11 +92,13 @@ app.controller('CreatePiao', ['$scope','$http','Piao','$uibModal', function($sco
 
     $scope.uploadingPiao.addDate = new Date();
     $scope.uploadingPiao.endDate = new Date();
+    $scope.uploadingPiao.soldDate = new Date();
   };
 
   $scope.clear = function(){
     $scope.uploadingPiao.addDate = null;
     $scope.uploadingPiao.endDate = null;
+    $scope.uploadingPiao.soldDate = null;
     $scope.uploadingPiao.bank = null;
     $scope.uploadingPiao.idNum = null;
     $scope.myfile= null;
@@ -93,7 +111,7 @@ app.controller('CreatePiao', ['$scope','$http','Piao','$uibModal', function($sco
   };
 
   $scope.dateOptions = {
-    dateDisabled: disabled,
+    dateDisabled: null,//disabled,
     formatYear: 'yy',
     maxDate: new Date(2020, 5, 22),
     minDate: new Date(),
@@ -122,6 +140,10 @@ app.controller('CreatePiao', ['$scope','$http','Piao','$uibModal', function($sco
     $scope.popup2.opened = true;
   };
 
+  $scope.open3 = function() {
+    $scope.popup3.opened = true;
+  };
+
   $scope.setDate = function(year, month, day) {
     $scope.dt = new Date(year, month, day);
   };
@@ -135,6 +157,10 @@ app.controller('CreatePiao', ['$scope','$http','Piao','$uibModal', function($sco
   };
 
   $scope.popup2 = {
+    opened: false
+  };
+
+  $scope.popup3 = {
     opened: false
   };
 

@@ -1,0 +1,93 @@
+
+<script type="text/ng-template" id="viewSinglePiao.html">
+
+
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">浏览票据</h3>
+    </div>
+
+    <div class="modal-body" id="modal-body">
+        <table>
+            <tr>
+                <td>票号: </td>
+                <td>{{focusingPiao.idNum}}</td>
+            </tr>
+
+            <tr>
+                <td>银行: </td>
+                <td>{{focusingPiao.bank}}</td>
+            </tr>
+            <tr>
+                <td>种类: </td>
+                <td>{{focusingPiao.type}}</td>
+            </tr>
+            <tr>
+                <td>金额: </td>
+                <td>{{focusingPiao.amount}}</td>
+            </tr>
+            <tr>
+                <td>加入时间: </td>
+                <td>{{focusingPiao.addDate}}</td>
+            </tr>
+            <tr>
+                <td>到期时间: </td>
+                <td>{{focusingPiao.endDate}}</td>
+            </tr>
+            <tr>
+                <td>已经卖出否:</td>
+                <td>{{focusingPiao.isSold}}</td>
+            </tr>
+            <tr>
+                <td>卖出日期:</td>
+                <td>{{focusingPiao.soldDate}}</td>
+            </tr>
+        </table>
+
+        <img width="100%" hight="100%" src="{{focusingPiao.headerPhoto}}"/>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.continue()">返回</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.exit()">功能待定</button>
+    </div>
+</script>
+
+
+<div>
+    <button type="button" class="btn btn-lg btn-info" ng-click="getCurrentPiaos()"> 从服务器 获取/刷新 数据</button>
+    <table>
+        <caption>现存未出库的税票</caption>
+        <tr>
+            <th>票号</th>
+            <th>截止日期</th>
+            <th>金额</th>
+            <th>银行</th>
+            <th>种类</th>
+            <th>Actions</th>
+        </tr>
+
+
+    <tr ng-repeat='piao in piaos'>
+        <td>{{piao.idNum}}</td>
+        <td>{{piao.endDate}}</td>
+        <td>{{piao.amount}}</td>
+        <td>{{piao.bank}}</td>
+        <td>{{piao.type}}</td>
+        <td>
+            <div class="btn-group" uib-dropdown keyboard-nav>
+                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                    操作 <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                    <li role="menuitem">出库</li>
+                    <li role="menuitem">修改</li>
+                    <li role="menuitem">删除</li>
+                    <li class="divider"></li>
+                    <li role="menuitem">查看</li>
+                </ul>
+            </div>
+
+        </td>
+    </tr>
+    </table>
+
+</div>

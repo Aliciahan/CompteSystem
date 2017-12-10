@@ -31,6 +31,13 @@ app.config(
        controller: 'CreatePiao',
      });
 
+     $stateProvider
+       .state('viewcurrent',{
+         url: '/viewcurrent',
+         templateUrl: './templates/viewCurrent.html',
+         controller: 'ViewCurrent'
+       });
+
 
     $urlRouterProvider.otherwise('create')
 

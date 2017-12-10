@@ -124,8 +124,18 @@ app.factory('Piao', ['$http','$base64',function($http, $base64){
   };
 
   piaoObject.getAll = function(){
-    return $http.get('../piao').success(function(data){
-      angular.copy(data, piaoObject.piaos)
+    return $http.get('../piao').then(function(res){
+      angular.copy(res.data, piaoObject.piaos)
+    }, function(res){
+      console.log(res.data.toString());
+    });
+  };
+
+  piaoObject.getAllCurrent = function(){
+    return $http.get('../piao/currentpiaos').then(function(res){
+      angular.copy(res.data, piaoObject.piaos)
+    }, function(res){
+      console.log(res.data.toString());
     });
   };
 
