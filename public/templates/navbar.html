@@ -1,0 +1,27 @@
+<div>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" ui-sref="home">华栩金融</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="create">录入票</a></li>
+                <li><a ui-sref="viewcurrent">查看汇票</a></li>
+            </ul>
+            <nav class="nav navbar-nav pull-right">
+                <ul class="nav navbar-nav ">
+                    <li >是否登录: {{ isLoggedin }}</li>
+                    <li ng-hide="isLoggedin"><a ui-sref="login">登陆</a></li>
+                    <li ng-hide="isLoggedin"><a ui-sref="registry">注册</a></li>
+                    <li ng-show="isLoggedin"><a > 现在的用户是: {{ currentUser() }} </a></li>
+                    <li ng-show="isLoggedin"><a  ng-click="logOut()">登出</a></li>
+                </ul>
+            </nav>
+        </div>
+    </nav>
+</div>
+
+
+<div>
+    <ui-view></ui-view>
+</div>

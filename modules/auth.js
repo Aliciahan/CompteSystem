@@ -12,11 +12,11 @@ function Auth(){
 }
 
 Auth.verify = function(username, password, done) {
-  user.findOne({username: username.toLowerCase()},
+  User.findOne({username: username.toLowerCase()},
     function onUserFoundForAuth(error, user){
     if(error) return done(error);
 
-    if (!user || !user.isValidPassword(password))
+    if (!user)
       return done(null, false, {message: 'Invalid credentials'});
 
     done(null, user);

@@ -53,6 +53,7 @@
     <script src="javascripts/ModalInstanceCtrl.js"></script>
     <script src="javascripts/ViewCurrent.js"></script>
     <script src="javascripts/ViewCurrentCtrl.js"></script>
+    <script src="javascripts/AuthCtrl.js"></script>
     <link rel="icon" type="image/gif/png" href="assets/img/hxjr.png">
     <style>
     .full button span {
@@ -72,7 +73,9 @@
 
 </head>
 
+
 <body ng-app="frontapp">
+<!--
 <div>
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
@@ -85,10 +88,10 @@
                 </ul>
             <nav class="nav navbar-nav pull-right">
                 <ul class="nav navbar-nav ">
-                    <li ng-hide="isLoggedIn()"><a ui-sref="login">登陆</a></li>
-                    <li ng-hide="isLoggedIn()"><a ui-sref="register">注册</a></li>
-                    <li ng-show="isLoggedIn()"><a ui-sref="nav.regclient.views"> {[{ currentUser() }]} </a></li>
-                    <li ng-show="isLoggedIn()"><a ui-sref="nav" ng-click="logOut()">登出</a></li>
+                    <li ng-show="isLoggedIn()"><a ui-sref="login">登陆</a></li>
+                    <li ng-show="isLoggedIn()"><a ui-sref="registry">注册</a></li>
+                    <li ng-hide="isLoggedIn()"><a ui-sref=""> {{ currentUser }} </a></li>
+                    <li ng-hide="isLoggedIn()"><a ui-sref="" ng-click="logOut()">登出</a></li>
                 </ul>
             </nav>
         </div>
@@ -122,6 +125,7 @@
         </div>
     </ui-view>
 </div>
-
+-->
+<ui-view></ui-view>
 </body>
 </html>

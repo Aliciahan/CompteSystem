@@ -7,6 +7,7 @@ var RateLimit = require('express-rate-limit');
 
 var Checks = require('../modules/checks');
 var Utils = require('../modules/utils');
+var Auth = require('../modules/auth');
 
 // Mount Schema
 var User = require('../models/user');
@@ -52,7 +53,7 @@ router.get('/register', registrationLimiter, Checks.db, register, sendToken);
 
 /* GET users listing. */
 router.get('/',
-  Checks.auth('admin'),
+//  Checks.auth('admin'),
   Checks.db,
   getUsers);
 
@@ -63,11 +64,20 @@ router.get('/:id',
 
 // createUser
 router.post('/',
-//  Checks.auth('client'),
+  Checks.auth('client'),
   Checks.db,
   createUser,
   Utils.cleanEntityToSend(['passwordSalt', 'passwordHash']),
   Utils.send);
+
+
+// Create Admin User, comment this after first use 第一次注册之后, 请把下面5行注释掉.
+router.post('/admin-reg',
+  createUser,
+  //Utils.cleanEntityToSend(['passwordSalt', 'passwordHash']),
+  sendToken
+);
+
 
 // updateUser
 router.put('/:id',
@@ -81,7 +91,9 @@ router.delete('/:id',
   Checks.auth('admin'),
   deleteUser);
 
+//login
 
+router.post('/login', login, sendToken);
 
 function getUsers(req, res, next) {
   var order = 'username';
@@ -196,8 +208,17 @@ function createUser(req, res, next) {
 
   var user = new User(req.body);
 
-  var onUserSaved = Utils.returnSavedEntity(req, res, next, 201);
-  user.save(onUserSaved);
+  //var onUserSaved = Utils.returnSavedEntity(req, res, next, 201);
+  //user.save(onUserSaved);
+  user.save(function onUserRegistrered(err){
+    if (err) {
+      return next(err);
+    }
+
+    req.user = user;
+    next();
+
+  })
 }
 
 
@@ -275,7 +296,6 @@ function register(req, res, next) {
 function login(req, res, next) {
   var onAuthDone = Auth.onDone(req, res, next);
   var auth = passport.authenticate('local', { session: false }, onAuthDone);
-
   auth(req, res, next);
 }
 

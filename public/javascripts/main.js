@@ -79,13 +79,24 @@ app.factory('auth', ['$http', '$window', function ($http, $window){
 
   auth.isLoggedin = function() {
     var  token = auth.getToken();
-
-    if (token){
+    if(token){
       var payload = JSON.parse($window.atob(token.split('.')[1]));
-      return payload.exp > Date.now()/1000;
-    } else {
+      if (payload) {
+
+        return payload.exp> Date.now()/1000;
+      }else{
+        return false;
+      }
+    }else{
       return false
     }
+
+//        return false;
+//    }else {
+  //      return true;
+      //var payload = JSON.parse($window.atob(token.split('.')[1]));
+      //return payload.exp > Date.now()/1000;
+   // }
   };
 
   auth.current = function(){
@@ -97,21 +108,31 @@ app.factory('auth', ['$http', '$window', function ($http, $window){
   };
 
   auth.register = function (user){
-    return $http.post('http://localhost:3000/user/register', user).success(function(data){
-      auth.saveToken(data.token);
+    return $http.post('http://localhost:3000/users/', user).then(function(res){
+      auth.saveToken(res.data.token);
+    }, function(res){
+      console.log("err: "+res.data)
     });
   };
 
+  auth.adminreg = function (user){
+      return $http.post('http://localhost:3000/users/admin-reg', user).then(function(res){
+        auth.saveToken(res.data.token);
+      }, function(res){
+        console.log("err: "+res.data)
+      });
+    };
 
   auth.logIn = function(user){
-    return $http.post('http://localhost:3000/user/login',user).success(function(data){
-      auth.saveToken(data.token);
+    return $http.post('http://localhost:3000/users/login',user).then(function(res){
+      auth.saveToken(res.data.token);
     });
   };
 
 
   auth.logOut = function(){
-    $window.localStorage.removeItem('inscription-token');
+    console.log("we are here");
+    return $window.localStorage.removeItem("inscription-token");
   };
 
   return auth;

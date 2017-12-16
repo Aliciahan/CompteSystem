@@ -4,16 +4,62 @@ app.config(
     $interpolateProvider.startSymbol('{{');
     $interpolateProvider.endSymbol('}}');
 
+    $stateProvider.state('root', {
+      url:'',
+      templateUrl: './templates/navbar.html',
+      controller: 'AuthCtrl',
+    });
 
     $stateProvider
-      .state('home',{
-        url: '/',
+      .state('root.home',{
+        url: '/home',
         templateUrl: "./templates/home.html",
-        controller: 'NavCtrl'
+        controller: '',
+        onEnter:['$state', 'auth', function($state,auth){
+          if(auth.isLoggedin()){
+            $state.go('root.home');
+          }
+        }]
       });
 
     $stateProvider
-     .state('piao', {
+      .state('login', {
+        url:'/login',
+        templateUrl: "./templates/login.html",
+        controller: 'AuthCtrl',
+        onEnter:['$state', 'auth', function($state,auth){
+          if(auth.isLoggedin()){
+            $state.go('root.home');
+          }
+        }]
+      });
+
+    $stateProvider
+      .state('registry',{
+        url:'/registry',
+        templateUrl: "./templates/registry.html",
+        controller: 'AuthCtrl',
+        onEnter:['$state', 'auth', function($state, auth){
+          if(auth.isLoggedin()){
+            $state.go('root.home');
+          }
+        }]
+      });
+
+    $stateProvider
+      .state('admin-reg',{
+        url:'/admin-reg',
+        templateUrl: "./templates/admin-reg.html",
+        controller: 'AuthCtrl',
+        onEnter:['$state', 'auth', function($state, auth){
+          if(auth.isLoggedin()){
+            $state.go('root.home');
+          }
+        }]
+      });
+
+    $stateProvider
+     .state('root.piao', {
        url: '/piaos',
        templateUrl: './templates/piaoGetAll.html',
        controller: 'piaoGetAll',
@@ -25,21 +71,21 @@ app.config(
      });
 
      $stateProvider
-     .state('create', {
+     .state('root.create', {
        url: '/create',
        templateUrl: './templates/createPiao.html',
        controller: 'CreatePiao',
      });
 
      $stateProvider
-       .state('viewcurrent',{
+       .state('root.viewcurrent',{
          url: '/viewcurrent',
          templateUrl: './templates/viewCurrent.html',
          controller: 'ViewCurrent'
        });
 
 
-    $urlRouterProvider.otherwise('/')
+    $urlRouterProvider.otherwise('home')
 
   }
 );
