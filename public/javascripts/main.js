@@ -76,7 +76,19 @@ app.factory('auth', ['$http', '$window', function ($http, $window){
     return $window.localStorage['inscription-token'];
   };
 
-
+  auth.isAdmin = function () {
+    var  token = auth.getToken();
+    if(token){
+      var payload = JSON.parse($window.atob(token.split('.')[1]));
+      if (payload) {
+        return payload.role === "admin";
+      }else{
+        return false;
+      }
+    }else{
+      return false
+    }
+  };
   auth.isLoggedin = function() {
     var  token = auth.getToken();
     if(token){
@@ -108,7 +120,7 @@ app.factory('auth', ['$http', '$window', function ($http, $window){
   };
 
   auth.register = function (user){
-    return $http.post('http://localhost:3000/users/', user).then(function(res){
+    return $http.post('http://localhost:3000/users/register', user).then(function(res){
       auth.saveToken(res.data.token);
     }, function(res){
       console.log("err: "+res.data)

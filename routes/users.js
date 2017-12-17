@@ -63,12 +63,13 @@ router.get('/:id',
   getUserInfo);
 
 // createUser
-router.post('/',
-  Checks.auth('client'),
-  Checks.db,
-  createUser,
-  Utils.cleanEntityToSend(['passwordSalt', 'passwordHash']),
-  Utils.send);
+router.post('/register',
+  //Checks.auth('client'),
+  //Checks.db,
+  register,
+  //Utils.cleanEntityToSend(['passwordSalt', 'passwordHash']),
+  //Utils.send
+  sendToken);
 
 
 // Create Admin User, comment this after first use 第一次注册之后, 请把下面5行注释掉.
@@ -286,7 +287,6 @@ function register(req, res, next) {
 
   user.save(function onUserRegistered(error) {
     if (error) return next(error);
-
     req.user = user;
     next();
   });
