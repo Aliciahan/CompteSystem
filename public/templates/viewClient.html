@@ -6,38 +6,38 @@
     <div class="table-responsive" >
         <table class="table table-striped">
             <caption>库存票据详情</caption>
-             <tr>
+            <tr>
                 <td>票号: </td>
                 <td>{{currentPiao.idNum}}</td>
-             </tr>
-             <tr>
+            </tr>
+            <tr>
                 <td>银行: </td>
                 <td>{{currentPiao.bank}}</td>
-             </tr>
-             <tr>
+            </tr>
+            <tr>
                 <td>种类: </td>
                 <td>{{currentPiao.type}}</td>
-             </tr>
-             <tr>
+            </tr>
+            <tr>
                 <td>金额: </td>
                 <td>{{currentPiao.amount}}</td>
-             </tr>
-             <tr>
+            </tr>
+            <tr>
                 <td>加入时间: </td>
                 <td>{{currentPiao.addDate}}</td>
-             </tr>
-             <tr>
+            </tr>
+            <tr>
                 <td>到期时间: </td>
                 <td>{{currentPiao.endDate}}</td>
-             </tr>
-             <tr>
+            </tr>
+            <tr>
                 <td>已经卖出否:</td>
                 <td>{{currentPiao.isSold}}</td>
-             </tr>
-             <tr>
+            </tr>
+            <tr>
                 <td>卖出日期:</td>
                 <td>{{currentPiao.soldDate}}</td>
-             </tr>
+            </tr>
         </table>
 
         <img width="100%" hight="100%" src="{{currentPiao.headerPhoto}}"/>
@@ -47,12 +47,12 @@
         <button class="btn btn-primary" type="button" ng-click="continue()">返回</button>
         <button class="btn btn-warning" type="button" ng-click="getpiao()">功能待定</button>
     </div>
-  </script>
+</script>
 
 <header>
     <a href="javascript:;" class="search-icon"></a>
     <h1 class="text-center">票据实时库存</h1>
-    <button type="button" class="btn btn-lg btn-info" ng-click="getCurrentPiaos()"> 从服务器 获取/刷新 数据</button>
+    <button type="button" class="btn btn-lg btn-info" ng-click="getCurrentPiaos()">刷新</button>
 </header>
 <!-- <section>
     <div class="select_mask"></div>
@@ -86,42 +86,31 @@
             </div>
 -->
 
-    <div class="table-responsive" >
+<div class="table-responsive" >
     <table class="table table-striped">
-          <tr>
-            <th>票号</th>
+        <tr>
             <th>截止日期</th>
             <th>票面金额</th>
             <th>承兑人</th>
             <th>汇票分类</th>
-            <th>Actions</th>
-          </tr>
+            <th>详情</th>
+        </tr>
 
 
-    <tr ng-repeat='piao in piaos'>
-        <td>{{piao.idNum}}</td>
-        <td>{{piao.endDate}}</td>
-        <td>{{piao.amount}}</td>
-        <td>{{piao.bank}}</td>
-        <td>{{piao.type}}</td>
-        <td>
-            <div class="btn-group" uib-dropdown keyboard-nav>
-                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
-                    操作 <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                    <li role="menuitem" ng-click="popupDetail(piao._id)">查看</li>
-                    <li role="menuitem">出库</li>
-                    <li role="menuitem">修改</li>
-                    <li role="menuitem" ng-click="delPiao(piao._id)">删除</li>
-                    <li class="divider"></li>
-                </ul>
-            </div>
-        </td>
+        <tr ng-repeat='piao in piaos'>
+            <td>{{piao.endDate}}</td>
+            <td>{{piao.amount}}</td>
+            <td>{{piao.bank}}</td>
+            <td>{{piao.type}}</td>
+            <td>
+                <div
+                    <button type="button" class="btn btn-link" ng-click="popupDetail(piao._id)">查看</button>
+                </div>
+            </td>
 
-    </tr>
+        </tr>
     </table>
-  </div>
+</div>
 
 <!--
 </section>
@@ -136,3 +125,6 @@
         <span class="glyphicon glyphicon-euro"></span> 票据总额
     </button>
 </footer>
+
+</body>
+</html>
