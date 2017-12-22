@@ -78,10 +78,10 @@ app.config(
      });
 
      $stateProvider
-       .state('root.viewcurrent',{
-         url: '/viewcurrent',
-         templateUrl: './templates/viewCurrent.html',
-         controller: 'ViewCurrent'
+       .state('root.viewclient',{
+         url: '/viewclient',
+         templateUrl: './templates/viewClient.html',
+         controller: 'ViewClient'
        });
      $stateProvider
        .state('root.check',{
