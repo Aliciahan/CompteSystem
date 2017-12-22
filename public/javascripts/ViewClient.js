@@ -10,7 +10,7 @@ app.controller('ViewClient', ['$scope','$http', 'Piao', '$uibModal', function($s
         "isSold": false,
         "soldDate": "1970-01-18",
         "headerPhoto": ""
-    };
+    };npm
 
     $scope.piaos= Piao.piaos;
 
