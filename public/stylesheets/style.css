@@ -1,8 +1,28 @@
-body {
+/*body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}*/
+* {
+  box-sizing: border-box;
 }
+
+body {
+  font: normal 100% Helvetica, Arial, sans-serif;
+  　　}
+
+h1 {
+  font-size: 1.5em;
+  　}
+
+small {
+  font-size: 0.875em;
+  　　}
 
 a {
   color: #00B7FF;
 }
+
+img {
+  max-width: 100%;
+    }
+
