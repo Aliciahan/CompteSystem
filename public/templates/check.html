@@ -1,10 +1,14 @@
-<div>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div class="table-responsive">
     <form ng-submit="check()">
-        <table>
+        <table class="table">
+            <caption>风险票据查询</caption>
+            <thead>
             <tr>
                 <th>票号</th>
                 <th>状况</th>
             </tr>
+            </thead>
 
             <tr ng-repeat='r in result'>
                 <td>{{r.piaoid}}</td>
