@@ -214,6 +214,19 @@ app.factory('Piao', ['$http', '$base64', 'auth', function($http, $base64, auth) 
         });
     };
 
+    piaoObject.updatePiao = function(piao){
+      return $http({
+        method: "PUT",
+        headers: {Authorization: 'Bearer '+ auth.getToken()},
+        url: "../piao/"+piao._id,
+        data: piao
+      }).then(function(res){
+        piaoObject.piaos.push(res.data);
+        alert("修改成功, 请刷新浏览器确认");
+      }, function(res){
+        alert("哎呦喂...好像哪里出了问题...");
+      })
+    };
     piaoObject.createPhoto = function(piao, picBin) {
         return $http({
                 method: "POST",

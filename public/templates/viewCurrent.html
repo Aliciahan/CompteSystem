@@ -1,5 +1,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+
+<script type="text/ng-template" id="modifySinglePiao.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">更改票据</h3>
+    </div>
+
+    <div>
+        <form>
+            <label>票号</label>
+            <input type="text" class="form-control" required ng-model="modifyPiao.idNum">
+            <label>承兑银行名称</label>
+            <input type="text" class="form-control"  required ng-model="modifyPiao.bank">
+            <label>金额</label>
+            <input type="text" class="form-control"  required ng-model="modifyPiao.amount">
+            <label>票据类型:</label>
+            <select class="form-control" ng-model="modifyPiao.type" ng-options="p for p in piaotypes"></select>
+            <label>入票日期</label>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="modifyPiao.addDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"  />
+                <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+            </p>
+            <label>到期时间</label>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="modifyPiao.endDate" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+            </p>
+            <div>
+                <input type="radio" id="isSoldOn" name="isSold" value="true" ng-click="setSold()"> <label for="isSoldOn">已经卖出</label>
+                <input type="radio" id="isSoldOff" name="isSold" value="false" ng-click="cancelSold()"> <label for="isSoldOff">尚未卖出 </label>
+                <div ng-show="modifyPiao.isSold">
+                    <label>卖出时间</label>
+                    <p class="input-group">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="modifyPiao.soldDate" is-open="popup3.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                    </p>
+                </div>
+            </div>
+
+
+            <button type="button" class="btn btn-sm btn-info" ng-click="today()">今日</button>
+            <button type="button" class="btn btn-sm btn-success" ng-click="save()">保存</button>
+        </form>
+    </div>
+
+</script>
+
+
 <script type="text/ng-template" id="viewSinglePiao.html">
     <div class="modal-header">
         <h3 class="modal-title" id="modal-title">库存票据详情</h3>
@@ -26,6 +75,18 @@
             <tr>
                 <td>到期日: </td>
                 <td>{{currentPiao.endDate| date:'MM/dd/yyyy'}}</td>
+            </tr>
+            <tr>
+                <td>是否出票:</td>
+                <td>{{currentPiao.isSold}}</td>
+            </tr>
+            <tr>
+                <td>出票日期</td>
+                <td>{{currentPiao.soldDate}}</td>
+            </tr>
+            <tr>
+                <td>入票日期</td>
+                <td>{{currentPiao.addDate}}</td>
             </tr>
         </table>
 
@@ -65,7 +126,7 @@
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
                         <li role="menuitem" ng-click="popupDetail(piao._id)">查看</li>
                         <li role="menuitem">出库</li>
-                        <li role="menuitem">修改</li>
+                        <li role="menuitem" ng-click="popupModify(piao._id)">修改</li>
                         <li role="menuitem" ng-click="delPiao(piao._id)">删除</li>
                         <li class="divider"></li>
                     </ul>
