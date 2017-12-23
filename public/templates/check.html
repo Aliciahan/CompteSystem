@@ -1,0 +1,16 @@
+<div>
+    <form ng-submit="check()">
+        <table>
+            <tr>
+                <th>票号</th>
+                <th>状况</th>
+            </tr>
+
+            <tr ng-repeat='r in result'>
+                <td>{{r.piaoid}}</td>
+                <td>{{r.info}}</td>
+            </tr>
+        </table>
+        <button type="submit" class="btn btn-lg btn-info"> 检查所有票据的有效性 </button>
+    </form>
+</div>

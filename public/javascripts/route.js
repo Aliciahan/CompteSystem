@@ -83,6 +83,17 @@ app.config(
          templateUrl: './templates/viewCurrent.html',
          controller: 'ViewCurrent'
        });
+     $stateProvider
+       .state('root.check',{
+         url: '/check',
+         templateUrl: './templates/check.html',
+         controller: 'CheckCtrl',
+         resolve:{
+           postPromise:['Piao', function(Piao){
+             return Piao.getAllCurrent();
+           }]
+         }
+       });
 
 
     $urlRouterProvider.otherwise('home')

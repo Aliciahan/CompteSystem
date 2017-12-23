@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Piao = require('../models/piao');
 var url = require('url');
+var exec = require('child_process').exec;
 
 var Utils = require('../modules/utils');
 
@@ -21,6 +22,7 @@ router.post('/',
 router.get('/',getPiaos);
 //查看所有有效的
 router.get('/currentpiaos', getCurrentPiaos);
+router.get('/check', checkPiao);
 
 //查看某一个汇票 使用汇票的票号
 router.get('/piaoid', getPiaoByPiaohao);
@@ -29,6 +31,21 @@ router.get('/piaoid', getPiaoByPiaohao);
 router.get('/:id', getPiaoById);
 router.put('/:id', updatePiao);
 router.delete('/:id', deletePiaoById);
+
+
+function checkPiao(req,res,next){
+  var cmdStr = 'curl -s http://rmfygg.court.gov.cn/psca/lgnot/bulletin/'+req.query.idNum+'_0_0.html | grep "公示催告\\|裁判文书"';
+  console.log('command: '+ cmdStr);
+  exec(cmdStr, function(err,stdout,stderr){
+    if(err){
+      console.log('err retrieving the information'+stderr);
+      res.send('errserver');
+    }else{
+      var result = stdout.toString();
+      res.send(result);
+    }
+  })
+}
 
 function getPiaoById(req, res, next) {
     Piao.findById(req.params.id, function(err, piao) {
