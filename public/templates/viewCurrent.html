@@ -1,141 +1,82 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<!--<link rel="stylesheet" type="text/css"
-      media="screen and (max-device-width: 400px)"
-      href="tinyScreen.css" />-->
-<!--如果屏幕宽度小于400像素（max-device-width: 400px），就加载tinyScreen.css文件-->
-<!--<link rel="stylesheet" type="text/css"
-      media="screen and (min-width: 400px) and (max-device-width: 600px)"
-      href="smallScreen.css" />-->
-<!--如果屏幕宽度在400像素到600像素之间，则加载smallScreen.css文件-->
 
 <script type="text/ng-template" id="viewSinglePiao.html">
     <div class="modal-header">
         <h3 class="modal-title" id="modal-title">库存票据详情</h3>
     </div>
 
-    <div class="table-responsive" >
+    <div class="table-responsive">
         <table class="table table-striped">
-            <caption>库存票据详情</caption>
-             <tr>
+            <tr>
                 <td>票号: </td>
                 <td>{{currentPiao.idNum}}</td>
-             </tr>
-             <tr>
+            </tr>
+            <tr>
                 <td>银行: </td>
                 <td>{{currentPiao.bank}}</td>
-             </tr>
-             <tr>
+            </tr>
+            <tr>
                 <td>种类: </td>
                 <td>{{currentPiao.type}}</td>
-             </tr>
-             <tr>
+            </tr>
+            <tr>
                 <td>金额: </td>
                 <td>{{currentPiao.amount}}</td>
-             </tr>
-             <tr>
-                <td>加入时间: </td>
-                <td>{{currentPiao.addDate}}</td>
-             </tr>
-             <tr>
-                <td>到期时间: </td>
-                <td>{{currentPiao.endDate}}</td>
-             </tr>
-             <tr>
-                <td>已经卖出否:</td>
-                <td>{{currentPiao.isSold}}</td>
-             </tr>
-             <tr>
-                <td>卖出日期:</td>
-                <td>{{currentPiao.soldDate}}</td>
-             </tr>
+            </tr>
+            <tr>
+                <td>到期日: </td>
+                <td>{{currentPiao.endDate| date:'MM/dd/yyyy'}}</td>
+            </tr>
         </table>
 
-        <img width="100%" hight="100%" src="{{currentPiao.headerPhoto}}"/>
+        <img width="100%" hight="100%" src="{{currentPiao.headerPhoto}}" />
 
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="continue()">返回</button>
-        <button class="btn btn-warning" type="button" ng-click="getpiao()">功能待定</button>
     </div>
-  </script>
+</script>
 
 <header>
     <a href="javascript:;" class="search-icon"></a>
-    <h1 class="text-center">票据实时库存</h1>
+    <h1 class="text-center">实时库存</h1>
     <button type="button" class="btn btn-lg btn-info" ng-click="getCurrentPiaos()"> 从服务器 获取/刷新 数据</button>
 </header>
-<!-- <section>
-    <div class="select_mask"></div>
-    <d class="topmenu index-menu">
-        <dt>
-            <div class="selectlist"
-                <div class="select_textdiv">
-                    <p>
-                        <span class="s_text">电子银票</span>
-                        <span class="select_down"></span>
-                    </p>
-                </div>
-                <div class="select_textul" style="width:1429px;">
-                    <ul class="select_first_ul" data-info="type">
-                        <li>
-                            <p data-id="0">不限</p>
-                        </li>
-                        <li class="focus">
-                            <p data-id="1">电子银票</p>
-                        </li>
-                        <li>
-                            <p data-id="3">电子商票</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </dt>
-        <dt>
-            <div class="selectlist">
 
-            </div>
--->
-
-    <div class="table-responsive" >
+<div class="table-responsive">
     <table class="table table-striped">
-          <tr>
-            <th>票号</th>
-            <th>截止日期</th>
-            <th>票面金额</th>
-            <th>承兑人</th>
-            <th>汇票分类</th>
-            <th>Actions</th>
-          </tr>
+        <tr>
+            <th>金额</th>
+            <th>到期日</th>
+            <th>银行</th>
+            <th>种类</th>
+            <th ng-hide="true">Actions</th>
+        </tr>
 
 
-    <tr ng-repeat='piao in piaos'>
-        <td>{{piao.idNum}}</td>
-        <td>{{piao.endDate}}</td>
-        <td>{{piao.amount}}</td>
-        <td>{{piao.bank}}</td>
-        <td>{{piao.type}}</td>
-        <td>
-            <div class="btn-group" uib-dropdown keyboard-nav>
-                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
+        <tr ng-repeat='piao in piaos' ng-click="popupDetail(piao._id)">
+            <td>{{piao.amount}}</td>
+            <td>{{piao.endDate | date:'MM/dd/yyyy'}}</td>
+            <td>{{piao.bank}}</td>
+            <td>{{piao.type}}</td>
+            <td ng-hide="true">
+                <div class="btn-group" uib-dropdown keyboard-nav>
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
                     操作 <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                    <li role="menuitem" ng-click="popupDetail(piao._id)">查看</li>
-                    <li role="menuitem">出库</li>
-                    <li role="menuitem">修改</li>
-                    <li role="menuitem" ng-click="delPiao(piao._id)">删除</li>
-                    <li class="divider"></li>
-                </ul>
-            </div>
-        </td>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                        <li role="menuitem" ng-click="popupDetail(piao._id)">查看</li>
+                        <li role="menuitem">出库</li>
+                        <li role="menuitem">修改</li>
+                        <li role="menuitem" ng-click="delPiao(piao._id)">删除</li>
+                        <li class="divider"></li>
+                    </ul>
+                </div>
+            </td>
 
-    </tr>
+        </tr>
     </table>
-  </div>
-
-<!--
-</section>
--->
+</div>
 
 <footer>
     <button type="button" class="btn btn-primary btn-lg" style="text-shadow: black 5px 3px 3px;">
