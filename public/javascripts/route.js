@@ -13,7 +13,12 @@ app.config(
      $stateProvider.state('client', {
       url:'/client',
       templateUrl: './templates/clientView.html',
-      controller: 'ViewCurrent',
+      controller: 'ViewCurrentClient',
+       resolve:{
+         postPromise:['Piao', function(Piao){
+           return Piao.getAllCurrent();
+         }]
+       }
     });
 
 

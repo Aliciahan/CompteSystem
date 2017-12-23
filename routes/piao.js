@@ -34,7 +34,9 @@ router.get('/:id', getPiaoById);
 router.put('/:id',
   Checks.auth('admin'),
   updatePiao);
-router.delete('/:id', deletePiaoById);
+router.delete('/:id',
+  Checks.auth('admin'),
+  deletePiaoById);
 
 
 function checkPiao(req,res,next){
@@ -142,6 +144,12 @@ function getPiaos(req,res,next) {
       case 'endDate-ace':
         order = '-endDate';
         break;
+      case 'amount-ace':
+        order = '-amount';
+        break;
+      case 'amount-desc':
+        order = 'amount';
+        break;
       default:
         var err = new Error('Bad Request: order shoud in [add-date-desc, add-date-ace, idNum-desc, idNum-ace, endDate-desc, endDate-ace]');
         err.status = 400;
@@ -199,6 +207,12 @@ function getCurrentPiaos(req,res,next) {
         break;
       case 'endDate-ace':
         order = '-endDate';
+        break;
+      case 'amount-ace':
+        order = '-amount';
+        break;
+      case 'amount-desc':
+        order = 'amount';
         break;
       default:
         var err = new Error('Bad Request: order shoud in [add-date-desc, add-date-ace, idNum-desc, idNum-ace, endDate-desc, endDate-ace]');

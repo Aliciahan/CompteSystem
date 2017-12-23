@@ -1,4 +1,4 @@
-app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function($scope, $http, Piao, $uibModal) {
+app.controller('ViewCurrentClient', ['$scope', '$http', 'Piao', '$uibModal', function($scope, $http, Piao, $uibModal) {
     var vm = $scope;
 
     vm.focusingPiao = {
@@ -36,7 +36,7 @@ app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function(
   }
 
     vm.getCurrentPiaos = function() {
-        Piao.getAll().then(function(){
+        Piao.getAllCurrent().then(function(){
           getAmountTotal();
         });
     };
@@ -91,12 +91,6 @@ app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function(
         }
     };
 
-    vm.getAllPiaoAmountUp = function(){
-      Piao.getAll("amount-ace");
-    };
-    vm.getAllPiaoAmountDown = function(){
-      Piao.getAll("amount-desc");
-    };
     vm.getCurrentPiaoAmountUp = function(){
       Piao.getAllCurrent("amount-ace");
 
