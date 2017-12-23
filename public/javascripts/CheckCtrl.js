@@ -38,20 +38,25 @@ angular.module('frontapp').controller('CheckCtrl',['$scope','auth', '$http','Pia
           $scope.result.push(
             {
               "piaoid" : piaoID,
-              "info": "服务端出现问题, 请联系管理员"
+              "info": "服务端出现问题, 请联系管理员",
+              "status": "yellow"
             })
         }else{
           $scope.result.push(
             {
               "piaoid" : piaoID,
-              "info": "问题票据! 请查询http://rmfygg.court.gov.cn/psca/lgnot/bulletin/"+piaoID+"_0_0.html"
+              "info": "问题票据! 请查询http://rmfygg.court.gov.cn/psca/lgnot/bulletin/"+piaoID+"_0_0.html",
+              "status": "red"
+
             })
         }
       }else {
         $scope.result.push(
           {
             "piaoid" : piaoID,
-            "info": "未检测出问题"
+            "info": "未检测出问题",
+            "status": "green"
+
           })
       }
     })
