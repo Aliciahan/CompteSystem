@@ -150,7 +150,7 @@ app.factory('auth', ['$http', '$window', function($http, $window) {
 }]);
 
 
-app.factory('Piao', ['$http', '$base64', function($http, $base64) {
+app.factory('Piao', ['$http', '$base64', 'auth', function($http, $base64, auth) {
     var piaoObject = {
         piaos: [],
         one: {}
@@ -203,6 +203,7 @@ app.factory('Piao', ['$http', '$base64', function($http, $base64) {
     piaoObject.create = function(piao) {
         return $http({
             method: "POST",
+            headers: {Authorization: 'Bearer '+ auth.getToken()},
             url: "../piao",
             data: piao
         }).then(function(res) {
@@ -216,6 +217,7 @@ app.factory('Piao', ['$http', '$base64', function($http, $base64) {
     piaoObject.createPhoto = function(piao, picBin) {
         return $http({
                 method: "POST",
+                headers: {Authorization: 'Bearer '+ auth.getToken()},
                 url: "../piao",
                 data: piao
             })

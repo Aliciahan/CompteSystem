@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var Piao = require('../models/piao');
 var url = require('url');
 var exec = require('child_process').exec;
+var Checks = require('../modules/checks');
 
 var Utils = require('../modules/utils');
 
@@ -13,6 +14,7 @@ var config = require('../config.json');
 
 //进行汇票录入
 router.post('/',
+  Checks.auth('admin'),
     createPiao,
     Utils.cleanEntityToSend(),
     Utils.send);

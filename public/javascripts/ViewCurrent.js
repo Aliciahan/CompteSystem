@@ -13,13 +13,32 @@ app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function(
         "headerPhoto": ""
     };
 
-    vm.piaos = Piao.piaos;
-    vm.countTotal;
+  var getAmountTotal = function(){
+    var total =0;
+    Piao.piaos.forEach(function(item){
+      total += item.amount;
+      console.log("we are here!"+item.amount);
+    });
+    vm.amountTotal = total;
+  };
+
+  vm.piaos = Piao.piaos;
     vm.amountTotal;
 
+
+
+  function sleep(delay){
+    return function(){
+      return new Promise(function(resolve,reject){
+        setTimeout(resolve,delay);
+      });
+    }
+  }
+
     vm.getCurrentPiaos = function() {
-        Piao.getAllCurrent();
-        console.log(vm.piaos);
+        Piao.getAllCurrent().then(function(){
+          getAmountTotal();
+        });
     };
 
     vm.getFocus = function(piaoId) {
@@ -52,7 +71,8 @@ app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function(
         } else {
 
         }
-    }
+    };
+
 
     vm.getCurrentPiaos();
 

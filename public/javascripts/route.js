@@ -10,6 +10,14 @@ app.config(
       controller: 'AuthCtrl',
     });
 
+     $stateProvider.state('client', {
+      url:'/client',
+      templateUrl: './templates/clientView.html',
+      controller: 'ViewCurrent',
+    });
+
+
+
     $stateProvider
       .state('root.home',{
         url: '/home',

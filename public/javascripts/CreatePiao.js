@@ -8,8 +8,8 @@ app.controller('CreatePiao', ['$scope','$http','Piao','$uibModal', function($sco
   };
 
   $scope.uploadingPiao = {
-    "idNum": "请填写票号",
-    "bank": "ICBC",
+    "idNum": "",
+    "bank": "",
     "type": "dianpiao",
     "amount": 8888,
     "endDate": "1970-01-18T11:55:31.965Z",
