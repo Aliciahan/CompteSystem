@@ -31,7 +31,9 @@ router.get('/piaoid', getPiaoByPiaohao);
 
 //查看某个汇票, 使用汇票系统分配的ID
 router.get('/:id', getPiaoById);
-router.put('/:id', updatePiao);
+router.put('/:id',
+  Checks.auth('admin'),
+  updatePiao);
 router.delete('/:id', deletePiaoById);
 
 
@@ -69,7 +71,6 @@ function updatePiao(req, res, next) {
 
     delete changes._id;
     delete changes.__v;
-    delete changes.addDate;
 
 
     Piao.findByIdAndUpdate({ _id: req.params.id }, changes, { new: true, upsert: false, runValidators: true }, function onChangementTaken(err, piao) {

@@ -36,7 +36,7 @@ app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function(
   }
 
     vm.getCurrentPiaos = function() {
-        Piao.getAllCurrent().then(function(){
+        Piao.getAll().then(function(){
           getAmountTotal();
         });
     };
@@ -63,6 +63,24 @@ app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function(
             }
         });
 
+    };
+
+    vm.popupModify = function(piaoId) {
+        var parentElem = undefined;
+        var modalInst = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'modifySinglePiao.html',
+            controller: 'ModifyCurrentCtrl',
+            size: 'lg',
+            scope: vm,
+            resolve: {
+                item: function() {
+                    return piaoId;
+                }
+            }
+        });
     };
 
     vm.delPiao = function(piaoId) {
