@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html">
     <!-- Global site tag (gtag.js) - Google Analytics -->
-   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110220353-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110220353-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
+
         function gtag() {
             dataLayer.push(arguments);
         }
@@ -51,6 +52,7 @@
     <script src="javascripts/CreatePiao.js"></script>
     <script src="javascripts/NavCtrl.js"></script>
     <script src="javascripts/ModalInstanceCtrl.js"></script>
+    <script src="javascripts/ViewAllCtl.js"></script>
     <script src="javascripts/ViewCurrent.js"></script>
     <script src="javascripts/ViewCurrentCtrl.js"></script>
     <script src="javascripts/ModifyCurrentCtrl.js"></script>
@@ -58,18 +60,24 @@
     <script src="javascripts/CheckCtrl.js"></script>
     <link rel="icon" type="image/gif/png" href="assets/img/hxjr.png">
     <style>
-    .full button span {
-        background-color: limegreen;
-        border-radius: 32px;
-        color: black;
-    }
-    .partially button span {
-        background-color: orange;
-        border-radius: 32px;
-        color: black;
-    }
-
-    .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+        .full button span {
+            background-color: limegreen;
+            border-radius: 32px;
+            color: black;
+        }
+        
+        .partially button span {
+            background-color: orange;
+            border-radius: 32px;
+            color: black;
+        }
+        
+        .nav,
+        .pagination,
+        .carousel,
+        .panel-title a {
+            cursor: pointer;
+        }
     </style>
     <link rel="stylesheet" href="./stylesheets/user.css">
 
@@ -77,6 +85,7 @@
 
 
 <body ng-app="frontapp">
-<ui-view></ui-view>
+    <ui-view></ui-view>
 </body>
+
 </html>

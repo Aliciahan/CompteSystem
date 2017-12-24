@@ -77,7 +77,7 @@
         <div class="table-responsive">
             <table class="table table-striped" id="client">
                 <tr>
-                    <th>金额</th>
+                    <th>金额(万)</th>
                     <th>到期日</th>
                     <th>银行</th>
                     <th>种类</th>
@@ -86,11 +86,13 @@
                 </tr>
 
 
-        <tr ng-repeat='piao in piaos' >
+
+        <tr ng-repeat='piao in piaos'>
             <td ng-click="popupDetail(piao._id)">{{piao.amount}}</td>
             <td ng-click="popupDetail(piao._id)">{{piao.endDate | date:'MM/dd/yyyy'}}</td>
             <td ng-click="popupDetail(piao._id)">{{piao.bank}}</td>
-            <td ng-click="popupDetail(piao._id)">{{piao.type}}</td>
+
+            <td ng-click="popupDetail(piao._id)">{{piao.type | checkType}}</td>
             <td >> </td>
             <td ng-show="isAdmin">
                 <div class="btn-group" uib-dropdown keyboard-nav>
@@ -103,12 +105,20 @@
                         <li class="divider"></li>
                     </ul>
                 </div>
-            </td>
+<!--            <td ng-click="popupDetail(piao._id)">
+                {{piao.type| checkType}}
+
+            </td>-->
         </tr>
     </table>
 </div>
 
 <footer>
+    <!--
     <p style="margin-left: 20px;"><span class="glyphicon glyphicon-credit-card"></span> 票据总数: {{piaos.length}} 个 </>
     <p style="margin-left: 20px;"><span class="glyphicon glyphicon-euro"></span> 票据总金额: {{amountTotal}} 元 </p>
+    -->
+
+    <p><span class="glyphicon glyphicon-credit-card"></span> 票据总数: {{piaos.length}} 个 </p>
+    <p><span class="glyphicon glyphicon-euro"></span> 票据总金额: {{amountTotal}} 万元 </p>
 </footer>
