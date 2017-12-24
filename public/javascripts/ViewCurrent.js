@@ -91,6 +91,13 @@ app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function(
         }
     };
 
+  vm.getAllPiaoEndDateUp = function(){
+    Piao.getAll("endDate-ace");
+  };
+  vm.getAllPiaoEndDateDown = function(){
+    Piao.getAll("endDate-desc");
+  };
+
     vm.getAllPiaoAmountUp = function(){
       Piao.getAll("amount-ace");
     };

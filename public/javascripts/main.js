@@ -159,6 +159,7 @@ app.factory('Piao', ['$http', '$base64', 'auth', function($http, $base64, auth) 
     piaoObject.delOneById = function(piaoId) {
         $http({
             method: "DELETE",
+            headers: {Authorization: 'Bearer '+ auth.getToken()},
             url: '../piao/' + piaoId.toString()
         }).then(function(res) {
             alert("Deleted!");

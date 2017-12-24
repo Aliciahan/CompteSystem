@@ -91,9 +91,15 @@ app.controller('ViewCurrentClient', ['$scope', '$http', 'Piao', '$uibModal', fun
         }
     };
 
+
+  vm.getCurrentPiaoEndDateUp = function(){
+    Piao.getAllCurrent("endDate-ace");
+  };
+  vm.getCurrentPiaoEndDateDown = function(){
+    Piao.getAllCurrent("endDate-desc");
+  };
     vm.getCurrentPiaoAmountUp = function(){
       Piao.getAllCurrent("amount-ace");
-
     };
     vm.getCurrentPiaoAmountDown = function(){
       Piao.getAllCurrent("amount-desc");
