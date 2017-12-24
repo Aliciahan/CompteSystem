@@ -12,11 +12,10 @@
             </ul>
             <nav class="nav navbar-nav pull-right">
                 <ul class="nav navbar-nav ">
-                    <li >是否登录: {{ isLoggedin }}; 是否是管理员 {{ isAdmin }}</li>
                     <li ng-hide="isLoggedin"><a ui-sref="login">登陆</a></li>
                     <li ng-hide="isLoggedin"><a ui-sref="registry">注册</a></li>
-                    <li ng-show="isLoggedin"><a > 现在的用户是: {{ currentUser() }} </a></li>
-                    <li ng-show="isLoggedin"><a  ng-click="logOut()">登出</a></li>
+                    <li ng-show="isLoggedin"><a> 现在的用户是: {{ currentUser() }} </a></li>
+                    <li ng-show="isLoggedin"><a ng-click="logOut()">登出</a></li>
                 </ul>
             </nav>
         </div>

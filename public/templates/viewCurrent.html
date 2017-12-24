@@ -11,14 +11,14 @@
             <label>票号</label>
             <input type="text" class="form-control" required ng-model="modifyPiao.idNum">
             <label>承兑银行名称</label>
-            <input type="text" class="form-control"  required ng-model="modifyPiao.bank">
+            <input type="text" class="form-control" required ng-model="modifyPiao.bank">
             <label>金额</label>
-            <input type="text" class="form-control"  required ng-model="modifyPiao.amount">
+            <input type="text" class="form-control" required ng-model="modifyPiao.amount">
             <label>票据类型:</label>
             <select class="form-control" ng-model="modifyPiao.type" ng-options="p for p in piaotypes"></select>
             <label>入票日期</label>
             <p class="input-group">
-                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="modifyPiao.addDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"  />
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="modifyPiao.addDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                 <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button></span>
             </p>
             <label>到期时间</label>
@@ -82,11 +82,11 @@
             </tr>
             <tr>
                 <td>出票日期</td>
-                <td>{{currentPiao.soldDate}}</td>
+                <td>{{currentPiao.soldDate| date:'MM/dd/yyyy'}}</td>
             </tr>
             <tr>
                 <td>入票日期</td>
-                <td>{{currentPiao.addDate}}</td>
+                <td>{{currentPiao.addDate| date:'MM/dd/yyyy'}}</td>
             </tr>
         </table>
 
@@ -100,14 +100,13 @@
 
 <header>
     <a href="javascript:;" class="search-icon"></a>
-    <h1 class="text-center">实时库存</h1>
-    <!--<button type="button" class="btn btn-lg btn-info" ng-click="getCurrentPiaos()"> 从服务器 获取/刷新 数据</button>-->
+    <h3 class="text-center">实时库存</h1>
 </header>
 
 <div class="table-responsive">
     <table class="table table-striped">
         <tr>
-            <th>金额</th>
+            <th>金额(万)</th>
             <th>到期日</th>
             <th>银行</th>
             <th>种类</th>
@@ -115,11 +114,11 @@
         </tr>
 
 
-        <tr ng-repeat='piao in piaos' >
+        <tr ng-repeat='piao in piaos'>
             <td ng-click="popupDetail(piao._id)">{{piao.amount}}</td>
             <td ng-click="popupDetail(piao._id)">{{piao.endDate | date:'MM/dd/yyyy'}}</td>
             <td ng-click="popupDetail(piao._id)">{{piao.bank}}</td>
-            <td ng-click="popupDetail(piao._id)">{{piao.type}}</td>
+            <td ng-click="popupDetail(piao._id)">{{piao.type| checkType}}</td>
             <td ng-show="isAdmin">
                 <div class="btn-group" uib-dropdown keyboard-nav>
                     <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>操作 <span class="caret"></span></button>
@@ -139,5 +138,5 @@
 
 <footer>
     <p><span class="glyphicon glyphicon-credit-card"></span> 票据总数: {{piaos.length}} 个 </p>
-    <p><span class="glyphicon glyphicon-euro"></span> 票据总金额: {{amountTotal}} 元 </p>
+    <p><span class="glyphicon glyphicon-euro"></span> 票据总金额: {{amountTotal}} 万元 </p>
 </footer>
