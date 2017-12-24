@@ -21,7 +21,18 @@ app.directive('fileModel', ['$parse', function($parse) {
     };
 }]);
 
-
+app.filter('checkType', function() {
+    return function(input) {
+        input = input || '';
+        var out = '';
+        if (input == 'dianpiao') {
+            out = "电票";
+        } else if (input == 'zhipiao') {
+            out = "纸票";
+        }
+        return out;
+    };
+})
 
 
 
@@ -152,6 +163,7 @@ app.factory('auth', ['$http', '$window', function($http, $window) {
 
 app.factory('Piao', ['$http', '$base64', 'auth', function($http, $base64, auth) {
     var piaoObject = {
+        allPiaos: [],
         piaos: [],
         one: {}
     };
@@ -175,6 +187,7 @@ app.factory('Piao', ['$http', '$base64', 'auth', function($http, $base64, auth) 
             return res.data;
         })
     };
+
 
   piaoObject.getAll = function(orderString) {
 
@@ -224,7 +237,7 @@ app.factory('Piao', ['$http', '$base64', 'auth', function($http, $base64, auth) 
     piaoObject.create = function(piao) {
         return $http({
             method: "POST",
-            headers: {Authorization: 'Bearer '+ auth.getToken()},
+            headers: { Authorization: 'Bearer ' + auth.getToken() },
             url: "../piao",
             data: piao
         }).then(function(res) {
@@ -235,23 +248,23 @@ app.factory('Piao', ['$http', '$base64', 'auth', function($http, $base64, auth) 
         });
     };
 
-    piaoObject.updatePiao = function(piao){
-      return $http({
-        method: "PUT",
-        headers: {Authorization: 'Bearer '+ auth.getToken()},
-        url: "../piao/"+piao._id,
-        data: piao
-      }).then(function(res){
-        piaoObject.piaos.push(res.data);
-        alert("修改成功, 请刷新浏览器确认");
-      }, function(res){
-        alert("哎呦喂...好像哪里出了问题...");
-      })
+    piaoObject.updatePiao = function(piao) {
+        return $http({
+            method: "PUT",
+            headers: { Authorization: 'Bearer ' + auth.getToken() },
+            url: "../piao/" + piao._id,
+            data: piao
+        }).then(function(res) {
+            piaoObject.piaos.push(res.data);
+            alert("修改成功, 请刷新浏览器确认");
+        }, function(res) {
+            alert("哎呦喂...好像哪里出了问题...");
+        })
     };
     piaoObject.createPhoto = function(piao, picBin) {
         return $http({
                 method: "POST",
-                headers: {Authorization: 'Bearer '+ auth.getToken()},
+                headers: { Authorization: 'Bearer ' + auth.getToken() },
                 url: "../piao",
                 data: piao
             })

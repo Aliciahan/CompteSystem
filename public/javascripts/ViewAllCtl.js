@@ -1,4 +1,4 @@
-app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function($scope, $http, Piao, $uibModal) {
+app.controller('ViewAllCtl', ['$scope', '$http', 'Piao', '$uibModal', function($scope, $http, Piao, $uibModal) {
     var vm = $scope;
 
     vm.focusingPiao = {
@@ -15,22 +15,14 @@ app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function(
 
     var getAmountTotal = function() {
         var total = 0;
-        Piao.piaos.forEach(function(item) {
+        Piao.allPiaos.forEach(function(item) {
             total += item.amount;
         });
         vm.amountTotal = total;
     };
 
-    vm.piaos = Piao.piaos;
+    vm.piaos = Piao.allPiaos;
     vm.amountTotal;
-
-    function sleep(delay) {
-        return function() {
-            return new Promise(function(resolve, reject) {
-                setTimeout(resolve, delay);
-            });
-        }
-    }
 
     vm.getCurrentPiaos = function() {
         Piao.getAll().then(function() {
@@ -87,23 +79,6 @@ app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function(
         }
     };
 
-
-  vm.getAllPiaoEndDateUp = function(){
-    Piao.getAll("endDate-ace");
-  };
-  vm.getAllPiaoEndDateDown = function(){
-    Piao.getAll("endDate-desc");
-  };
-
-    vm.getAllPiaoAmountUp = function(){
-      Piao.getAll("amount-ace");
-    };
-    vm.getAllPiaoAmountDown = function(){
-      Piao.getAll("amount-desc");
-    };
-
     vm.getCurrentPiaos();
-
-
 
 }]);

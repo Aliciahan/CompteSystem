@@ -1,16 +1,53 @@
-<div>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        #check
+        {
+            font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+            width:100%;
+            border-collapse:collapse;
+        }
+        #check td, #check th
+        {
+            font-size:1em;
+            border:1px solid #F0F0F0;
+            padding:3px 7px 2px 7px;
+        }
+        #check th
+        {
+            font-size:1.1em;
+            text-align:left;
+            padding-top:5px;
+            padding-bottom:4px;
+            background-color:#99CCCC;
+            color:#ffffff;
+        }
+        #check tr.alt td
+        {
+            color:#000000;
+            background-color:#CCFFCC;
+        }
+    </style>
+</head>
+
+
+<h4 class="text-center">风险票据查询</h4>
+<div class="table-responsive">
     <form ng-submit="check()">
-        <table>
+        <table class="table" id="check">
+            <thead>
             <tr>
                 <th>票号</th>
                 <th>状况</th>
             </tr>
+            </thead>
 
             <tr ng-repeat='r in result'>
                 <td>{{r.piaoid}}</td>
-                <td>{{r.info}}</td>
+                <td backgroundcolor="{{r.status}}">{{r.info}}</td>
             </tr>
         </table>
-        <button type="submit" class="btn btn-lg btn-info"> 检查所有票据的有效性 </button>
+        <button type="submit" class="btn btn-info btn-sm"> 检查所有票据的有效性 </button>
     </form>
 </div>
