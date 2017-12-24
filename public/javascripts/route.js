@@ -96,7 +96,7 @@ app.config(
             .state('root.viewcurrent', {
                 url: '/viewcurrent',
                 templateUrl: './templates/viewCurrent.html',
-                controller: 'ViewAllCtl'
+                controller: 'ViewCurrent'
             });
         $stateProvider
             .state('root.check', {

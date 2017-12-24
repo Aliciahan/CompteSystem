@@ -41,10 +41,8 @@ router.delete('/:id',
 
 function checkPiao(req,res,next){
   var cmdStr = 'curl -s http://rmfygg.court.gov.cn/psca/lgnot/bulletin/'+req.query.idNum+'_0_0.html | grep "公示催告\\|裁判文书"';
-  console.log('command: '+ cmdStr);
   exec(cmdStr, function(err,stdout,stderr){
     if(err){
-      console.log('err retrieving the information'+stderr);
       res.send('errserver');
     }else{
       var result = stdout.toString();
