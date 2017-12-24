@@ -10,11 +10,18 @@ app.config(
             controller: 'AuthCtrl',
         });
 
-        $stateProvider.state('client', {
-            url: '/client',
-            templateUrl: './templates/clientView.html',
-            controller: 'ViewCurrent',
-        });
+
+     $stateProvider.state('client', {
+      url:'/client',
+      templateUrl: './templates/clientView.html',
+      controller: 'ViewCurrentClient',
+       resolve:{
+         postPromise:['Piao', function(Piao){
+           return Piao.getAllCurrent();
+         }]
+       }
+    });
+
 
 
 
@@ -89,7 +96,7 @@ app.config(
             .state('root.viewcurrent', {
                 url: '/viewcurrent',
                 templateUrl: './templates/viewCurrent.html',
-                controller: 'ViewAllCtl'
+                controller: 'ViewCurrent'
             });
         $stateProvider
             .state('root.check', {

@@ -142,8 +142,9 @@
 <div class="table-responsive">
     <table class="table table-striped" id="manager">
         <tr>
-            <th>金额(万)</th>
-            <th>到期日</th>
+
+            <th>金额(万)<a ng-click="getAllPiaoAmountUp()">^</a> <a ng-click="getAllPiaoAmountDown()">v</a></th>
+            <th>到期日<a ng-click="getAllPiaoEndDateUp()">^</a> <a ng-click="getAllPiaoEndDateDown()">v</a></th>
             <th>银行</th>
             <th>种类</th>
             <th ng-show="isAdmin">Actions</th>
@@ -160,7 +161,6 @@
                     <button id="simple-btn-keyboard-nav" type="button" class="btn btn-link" uib-dropdown-toggle>操作 <span class="caret"></span></button>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
                         <li role="menuitem" ng-click="popupDetail(piao._id)">查看</li>
-                        <li role="menuitem">出库</li>
                         <li role="menuitem" ng-click="popupModify(piao._id)">修改</li>
                         <li role="menuitem" ng-click="delPiao(piao._id)">删除</li>
                         <li class="divider"></li>

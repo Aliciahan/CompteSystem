@@ -171,6 +171,7 @@ app.factory('Piao', ['$http', '$base64', 'auth', function($http, $base64, auth) 
     piaoObject.delOneById = function(piaoId) {
         $http({
             method: "DELETE",
+            headers: {Authorization: 'Bearer '+ auth.getToken()},
             url: '../piao/' + piaoId.toString()
         }).then(function(res) {
             alert("Deleted!");
@@ -187,21 +188,42 @@ app.factory('Piao', ['$http', '$base64', 'auth', function($http, $base64, auth) 
         })
     };
 
-    piaoObject.getAll = function() {
-        return $http.get('../piao').then(function(res) {
-            angular.copy(res.data, piaoObject.allPiaos)
-        }, function(res) {
-            console.log(res.data.toString());
-        });
-    };
 
-    piaoObject.getAllCurrent = function() {
-        return $http.get('../piao/currentpiaos').then(function(res) {
-            angular.copy(res.data, piaoObject.piaos)
+  piaoObject.getAll = function(orderString) {
+
+    if(orderString){
+      return $http.get('../piao?order='+orderString).then(function(res) {
+        angular.copy(res.data, piaoObject.piaos)
+      }, function(res) {
+        console.log(res.data.toString());
+      });
+    } else{
+      return $http.get('../piao').then(function(res) {
+        angular.copy(res.data, piaoObject.piaos)
+      }, function(res) {
+        console.log(res.data.toString());
+      });
+    }
+
+  };
+
+    piaoObject.getAllCurrent = function(orderString) {
+      if(orderString){
+        return $http.get('../piao/currentpiaos?order='+orderString).then(function(res) {
+            angular.copy(res.data, piaoObject.piaos);
             return res.data;
         }, function(res) {
             console.log(res.data.toString());
         });
+      }else{
+          return $http.get('../piao/currentpiaos').then(function(res) {
+            angular.copy(res.data, piaoObject.piaos);
+            return res.data;
+        }, function(res) {
+            console.log(res.data.toString());
+        });
+      }
+
     };
 
     piaoObject.getById = function(piaoid) {

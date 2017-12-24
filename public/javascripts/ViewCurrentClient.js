@@ -1,46 +1,50 @@
-app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function($scope, $http, Piao, $uibModal) {
+app.controller('ViewCurrentClient', ['$scope', '$http', 'Piao', '$uibModal', function($scope, $http, Piao, $uibModal) {
     var vm = $scope;
 
     vm.focusingPiao = {
-        "idNum": "",
-        "bank": "",
-        "type": "",
-        "amount": 0,
-        "endDate": new Date().setMonth(new Date().getMonth + 6),
-        "addDate": new Date(),
+        "idNum": "请填写票号",
+        "bank": "ICBC",
+        "type": "dianpiao",
+        "amount": 8888,
+        "endDate": "1970-01-18T11:55:31.965Z",
+        "addDate": "1970-01-18T11:55:15.668Z",
         "isSold": false,
-        "soldDate": null,
+        "soldDate": "1970-01-18T11:55:15.668Z",
         "headerPhoto": ""
     };
 
-    var getAmountTotal = function() {
-        var total = 0;
-        Piao.piaos.forEach(function(item) {
-            total += item.amount;
-        });
-        vm.amountTotal = total;
-    };
+  var getAmountTotal = function(){
+    var total =0;
+    Piao.piaos.forEach(function(item){
+      total += item.amount;
+      console.log("we are here!"+item.amount);
+    });
+    vm.amountTotal = total;
+  };
 
-    vm.piaos = Piao.piaos;
+  vm.piaos = Piao.piaos;
     vm.amountTotal;
 
-    function sleep(delay) {
-        return function() {
-            return new Promise(function(resolve, reject) {
-                setTimeout(resolve, delay);
-            });
-        }
+
+
+  function sleep(delay){
+    return function(){
+      return new Promise(function(resolve,reject){
+        setTimeout(resolve,delay);
+      });
     }
+  }
 
     vm.getCurrentPiaos = function() {
-        Piao.getAll().then(function() {
-            getAmountTotal();
+        Piao.getAllCurrent().then(function(){
+          getAmountTotal();
         });
     };
 
     vm.getFocus = function(piaoId) {
         vm.focusingPiao = Piao.getById(piaoId);
     };
+
 
     vm.popupDetail = function(piaoId) {
         var parentElem = undefined;
@@ -88,18 +92,17 @@ app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function(
     };
 
 
-  vm.getAllPiaoEndDateUp = function(){
-    Piao.getAll("endDate-ace");
+  vm.getCurrentPiaoEndDateUp = function(){
+    Piao.getAllCurrent("endDate-ace");
   };
-  vm.getAllPiaoEndDateDown = function(){
-    Piao.getAll("endDate-desc");
+  vm.getCurrentPiaoEndDateDown = function(){
+    Piao.getAllCurrent("endDate-desc");
   };
-
-    vm.getAllPiaoAmountUp = function(){
-      Piao.getAll("amount-ace");
+    vm.getCurrentPiaoAmountUp = function(){
+      Piao.getAllCurrent("amount-ace");
     };
-    vm.getAllPiaoAmountDown = function(){
-      Piao.getAll("amount-desc");
+    vm.getCurrentPiaoAmountDown = function(){
+      Piao.getAllCurrent("amount-desc");
     };
 
     vm.getCurrentPiaos();

@@ -45,7 +45,7 @@ angular.module('frontapp').controller('CheckCtrl',['$scope','auth', '$http','Pia
           $scope.result.push(
             {
               "piaoid" : piaoID,
-              "info": "问题票据! 请查询http://rmfygg.court.gov.cn/psca/lgnot/bulletin/"+piaoID+"_0_0.html",
+              "info": "http://rmfygg.court.gov.cn/psca/lgnot/bulletin/"+piaoID+"_0_0.html",
               "status": "red"
 
             })
