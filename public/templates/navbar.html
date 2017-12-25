@@ -15,7 +15,7 @@
                     <li ng-hide="isLoggedin"><a ui-sref="login">登陆</a></li>
                     <li ng-hide="isLoggedin"><a ui-sref="registry">注册</a></li>
                     <li ng-show="isLoggedin"><a> 现在的用户是: {{ currentUser() }} </a></li>
-                    <li ng-show="isLoggedin"><a ng-click="logOut()">登出</a></li>
+                    <li ng-show="isLoggedin"><a ui-sref="root.home" ng-click="out()">登出</a></li>
                 </ul>
             </nav>
         </div>

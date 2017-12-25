@@ -2,7 +2,6 @@ angular.module('frontapp').controller('AuthCtrl',['$scope','auth','$state', '$wi
 
   $scope.isLoggedin = auth.isLoggedin();
   $scope.currentUser = auth.current;
-  $scope.logOut = auth.logOut;
   $scope.isAdmin = auth.isAdmin();
 
   $scope.user={};
@@ -26,13 +25,28 @@ angular.module('frontapp').controller('AuthCtrl',['$scope','auth','$state', '$wi
     });
   };
 
-  $scope.logOut = function(){
-    $window.localStorage.clear().resolve(function(){
-      $state.go('root.home');
-    });
-    // auth.logOut().then(function(){
-    //   $state.go('root.home');
+  function sleep(delay){
+    return function(){
+      return new Promise(function(resolve,reject){
+        setTimeout(resolve,delay);
+      });
+    }
+  }
+
+  $scope.out = function(){
+    //$window.localStorage.clear().resolve(function(){
+    //  $state.go('root.home');
+    //});
+    // $scope.logout().then(function(){
+    //    $state.go('root.home');
     // });
+    var promise = new Promise(function(resolve){
+      auth.finished();
+      resolve();
+    }).then(sleep(1000)).then(function(){
+      //$state.go('root.home');
+      location.reload();
+    });
   };
 
 }]);

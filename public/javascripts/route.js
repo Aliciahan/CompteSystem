@@ -29,7 +29,7 @@ app.config(
             .state('root.home', {
                 url: '/home',
                 templateUrl: "./templates/home.html",
-                controller: '',
+                controller: 'AuthCtrl',
                 onEnter: ['$state', 'auth', function($state, auth) {
                     if (auth.isLoggedin()) {
                         $state.go('root.home');

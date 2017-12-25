@@ -91,7 +91,7 @@ app.factory('auth', ['$http', '$window', function($http, $window) {
         if (token) {
             var payload = JSON.parse($window.atob(token.split('.')[1]));
             if (payload) {
-                return payload.role === "admin";
+                return (payload.role === "admin");
             } else {
                 return false;
             }
@@ -151,10 +151,9 @@ app.factory('auth', ['$http', '$window', function($http, $window) {
         });
     };
 
-
-    auth.logOut = function() {
-        console.log("we are here");
-        return $window.localStorage.removeItem("inscription-token");
+    auth.finished = function() {
+        //$window.localStorage.removeItem("inscription-token");
+      delete localStorage['inscription-token'];
     };
 
     return auth;
