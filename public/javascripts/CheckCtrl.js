@@ -33,7 +33,7 @@ angular.module('frontapp').controller('CheckCtrl',['$scope','auth', '$http','Pia
 
   var checkOnePiao = function(piaoID){
     $http.get("../piao/check?idNum="+piaoID).then(function(res){
-      if(res.data){
+      if(res.data.toString()){
         if(res.data.toString() === "errserver"){
           $scope.result.push(
             {
@@ -54,7 +54,7 @@ angular.module('frontapp').controller('CheckCtrl',['$scope','auth', '$http','Pia
         $scope.result.push(
           {
             "piaoid" : piaoID,
-            "info": "未检测出问题",
+            "info": "基本没有问题, 没有找到相关判决书或公示催告",
             "status": "green"
 
           })

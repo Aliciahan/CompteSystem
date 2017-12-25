@@ -43,7 +43,16 @@ function checkPiao(req,res,next){
   var cmdStr = 'curl -s http://rmfygg.court.gov.cn/psca/lgnot/bulletin/'+req.query.idNum+'_0_0.html | grep "公示催告\\|裁判文书"';
   exec(cmdStr, function(err,stdout,stderr){
     if(err){
-      res.send('errserver');
+      // 此处是当命令没有找到相关的问题的时候
+      if(stderr === ""){
+        res.send("");
+      }else{
+        //此处是当命令运行出错时候
+        console.log("stderr:"+stderr);
+        console.log("err:"+err);
+        res.send('errserver');
+      }
+
     }else{
       var result = stdout.toString();
       res.send(result);

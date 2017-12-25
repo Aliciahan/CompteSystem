@@ -45,7 +45,8 @@
 
             <tr ng-repeat='r in result'>
                 <td>{{r.piaoid}}</td>
-                <td bgcolor="{{r.status}}"> <a href="{{r.info}}">风险详情</a></td>
+                    <td ng-if="r.status=='red'" bgcolor="{{r.status}}"> <a href="{{r.info}}">风险详情</a></td>
+                    <td ng-if="r.status!=='red'" bgcolor="{{r.status}}"> {{r.info}}</td>
             </tr>
         </table>
         <button type="submit" class="btn btn-info btn-sm"> 检查所有票据的有效性 </button>
