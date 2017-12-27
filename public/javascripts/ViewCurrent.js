@@ -88,18 +88,26 @@ app.controller('ViewCurrent', ['$scope', '$http', 'Piao', '$uibModal', function(
     };
 
 
-  vm.getAllPiaoEndDateUp = function(){
-    Piao.getAll("endDate-ace");
-  };
-  vm.getAllPiaoEndDateDown = function(){
-    Piao.getAll("endDate-desc");
-  };
+    var orderByAmountUp = true;
+    var orderByEndDateUp = true;
 
-    vm.getAllPiaoAmountUp = function(){
-      Piao.getAll("amount-ace");
+    vm.orderByEndDate = function() {
+        if (orderByEndDateUp) {
+            Piao.getAllCurrent("endDate-ace");
+            orderByEndDateUp = false;
+        } else {
+            Piao.getAllCurrent("endDate-desc");
+            orderByEndDateUp = true;
+        }
     };
-    vm.getAllPiaoAmountDown = function(){
-      Piao.getAll("amount-desc");
+    vm.orderByAmount = function() {
+        if (orderByAmountUp) {
+            Piao.getAllCurrent("amount-ace");
+            orderByAmountUp = false;
+        } else {
+            Piao.getAllCurrent("amount-desc");
+            orderByAmountUp = true;
+        }
     };
 
     vm.getCurrentPiaos();

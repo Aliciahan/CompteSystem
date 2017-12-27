@@ -4,26 +4,33 @@ app.config(
         $interpolateProvider.startSymbol('{{');
         $interpolateProvider.endSymbol('}}');
 
-        $stateProvider.state('root', {
+        $stateProvider.state('client', {
             url: '',
+            templateUrl: './templates/clientView.html',
+            controller: 'ViewCurrentClient',
+            resolve: {
+                postPromise: ['Piao', function(Piao) {
+                    return Piao.getAllCurrent();
+                }]
+            }
+        });
+
+        $stateProvider.state('root', {
+            url: '/nav',
             templateUrl: './templates/navbar.html',
             controller: 'AuthCtrl',
         });
 
-
-     $stateProvider.state('client', {
-      url:'/client',
-      templateUrl: './templates/clientView.html',
-      controller: 'ViewCurrentClient',
-       resolve:{
-         postPromise:['Piao', function(Piao){
-           return Piao.getAllCurrent();
-         }]
-       }
-    });
-
-
-
+        $stateProvider.state('kucun', {
+            url: '/kucun',
+            templateUrl: './templates/clientView.html',
+            controller: 'ViewCurrentClient',
+            resolve: {
+                postPromise: ['Piao', function(Piao) {
+                    return Piao.getAllCurrent();
+                }]
+            }
+        });
 
         $stateProvider
             .state('root.home', {
@@ -111,7 +118,7 @@ app.config(
             });
 
 
-        $urlRouterProvider.otherwise('home')
+        $urlRouterProvider.otherwise('kucun')
 
     }
 );

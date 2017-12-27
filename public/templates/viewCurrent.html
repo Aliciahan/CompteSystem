@@ -2,31 +2,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
-        #manager
-        {
-            font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-            width:100%;
-            border-collapse:collapse;
+        #manager {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            width: 100%;
+            border-collapse: collapse;
         }
-        #manager td, #check th
-        {
-            font-size:1em;
-            border:1px solid #F0F0F0;
-            padding:3px 7px 2px 7px;
+        
+        #manager td,
+        #check th {
+            font-size: 1em;
+            border: 1px solid #F0F0F0;
+            padding: 3px 7px 2px 7px;
         }
-        #manager th
-        {
-            font-size:1.1em;
-            text-align:left;
-            padding-top:5px;
-            padding-bottom:4px;
-            background-color:#99CCCC;
-            color:#ffffff;
+        
+        #manager th {
+            font-size: 1.1em;
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: #99CCCC;
+            color: #ffffff;
         }
-        #manager tr.alt td
-        {
-            color:#000000;
-            background-color:#CCFFCC;
+        
+        #manager tr.alt td {
+            color: #000000;
+            background-color: #CCFFCC;
         }
     </style>
 </head>
@@ -98,7 +98,7 @@
             </tr>
             <tr>
                 <td>种类: </td>
-                <td>{{currentPiao.type}}</td>
+                <td>{{currentPiao.type| checkType}}</td>
             </tr>
             <tr>
                 <td>金额: </td>
@@ -142,9 +142,8 @@
 <div class="table-responsive">
     <table class="table table-striped" id="manager">
         <tr>
-
-            <th>金额(万)<a ng-click="getAllPiaoAmountUp()">^</a> <a ng-click="getAllPiaoAmountDown()">v</a></th>
-            <th>到期日<a ng-click="getAllPiaoEndDateUp()">^</a> <a ng-click="getAllPiaoEndDateDown()">v</a></th>
+            <th ng-click="orderByAmount()">金额(万)</th>
+            <th ng-click="orderByEndDate()">到期日 </th>
             <th>银行</th>
             <th>种类</th>
             <th ng-show="isAdmin">Actions</th>
