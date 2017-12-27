@@ -13,31 +13,31 @@ app.controller('ViewCurrentClient', ['$scope', '$http', 'Piao', '$uibModal', fun
         "headerPhoto": ""
     };
 
-  var getAmountTotal = function(){
-    var total =0;
-    Piao.piaos.forEach(function(item){
-      total += item.amount;
-      console.log("we are here!"+item.amount);
-    });
-    vm.amountTotal = total;
-  };
+    var getAmountTotal = function() {
+        var total = 0;
+        Piao.piaos.forEach(function(item) {
+            total += item.amount;
+            console.log("we are here!" + item.amount);
+        });
+        vm.amountTotal = total;
+    };
 
-  vm.piaos = Piao.piaos;
+    vm.piaos = Piao.piaos;
     vm.amountTotal;
 
 
 
-  function sleep(delay){
-    return function(){
-      return new Promise(function(resolve,reject){
-        setTimeout(resolve,delay);
-      });
+    function sleep(delay) {
+        return function() {
+            return new Promise(function(resolve, reject) {
+                setTimeout(resolve, delay);
+            });
+        }
     }
-  }
 
     vm.getCurrentPiaos = function() {
-        Piao.getAllCurrent().then(function(){
-          getAmountTotal();
+        Piao.getAllCurrent().then(function() {
+            getAmountTotal();
         });
     };
 
@@ -91,22 +91,27 @@ app.controller('ViewCurrentClient', ['$scope', '$http', 'Piao', '$uibModal', fun
         }
     };
 
+    var orderByAmountUp = true;
+    var orderByEndDateUp = true;
 
-  vm.getCurrentPiaoEndDateUp = function(){
-    Piao.getAllCurrent("endDate-ace");
-  };
-  vm.getCurrentPiaoEndDateDown = function(){
-    Piao.getAllCurrent("endDate-desc");
-  };
-    vm.getCurrentPiaoAmountUp = function(){
-      Piao.getAllCurrent("amount-ace");
+    vm.orderByEndDate = function() {
+        if (orderByEndDateUp) {
+            Piao.getAllCurrent("endDate-ace");
+            orderByEndDateUp = false;
+        } else {
+            Piao.getAllCurrent("endDate-desc");
+            orderByEndDateUp = true;
+        }
     };
-    vm.getCurrentPiaoAmountDown = function(){
-      Piao.getAllCurrent("amount-desc");
+    vm.orderByAmount = function() {
+        if (orderByAmountUp) {
+            Piao.getAllCurrent("amount-ace");
+            orderByAmountUp = false;
+        } else {
+            Piao.getAllCurrent("amount-desc");
+            orderByAmountUp = true;
+        }
     };
 
     vm.getCurrentPiaos();
-
-
-
 }]);

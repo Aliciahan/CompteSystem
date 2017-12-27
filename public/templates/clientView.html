@@ -71,18 +71,17 @@
 
 <header>
     <a href="javascript:;" class="search-icon"></a>
-    <h3 class="text-center">实时库存</h3>
+    <h4 class="text-center">实时库存</h3>
 </header>
 
 
 <div class="table-responsive">
     <table class="table table-striped" id="client">
         <tr>
-            <th>金额(万)<a ng-click="getCurrentPiaoAmountUp()">^</a> <a ng-click="getCurrentPiaoAmountDown()">v</a></th>
-            <th>到期日<a ng-click="getCurrentPiaoEndDateUp()">^</a> <a ng-click="getCurrentPiaoEndDateDown()">v</a></th>
+            <th ng-click="orderByAmount()">金额(万)</th>
+            <th ng-click="orderByEndDate()">到期日 </th>
             <th>银行</th>
             <th>种类</th>
-            <th> </th>
             <th ng-show="isAdmin">Actions</th>
         </tr>
 
@@ -91,9 +90,7 @@
             <td ng-click="popupDetail(piao._id)">{{piao.amount}}</td>
             <td ng-click="popupDetail(piao._id)">{{piao.endDate | date:'MM/dd/yyyy'}}</td>
             <td ng-click="popupDetail(piao._id)">{{piao.bank}}</td>
-
             <td ng-click="popupDetail(piao._id)">{{piao.type | checkType}}</td>
-            <td>> </td>
             <td ng-show="isAdmin">
                 <div class="btn-group" uib-dropdown keyboard-nav>
                     <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>操作 <span class="caret"></span></button>
@@ -104,10 +101,6 @@
                         <li class="divider"></li>
                     </ul>
                 </div>
-                <!--            <td ng-click="popupDetail(piao._id)">
-                {{piao.type| checkType}}
-
-            </td>-->
         </tr>
     </table>
 </div>
