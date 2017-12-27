@@ -2,36 +2,36 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
-        #client
-        {
-            font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-            width:100%;
-            border-collapse:collapse;
+        #client {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            width: 100%;
+            border-collapse: collapse;
         }
-        #client td, #check th
-        {
-            font-size:1em;
-            border:1px solid #F0F0F0;
-            padding:3px 7px 2px 7px;
+        
+        #client td,
+        #check th {
+            font-size: 1em;
+            border: 1px solid #F0F0F0;
+            padding: 3px 7px 2px 7px;
         }
-        #client th
-        {
-            font-size:1.1em;
-            text-align:left;
-            padding-top:5px;
-            padding-bottom:4px;
-            background-color:#99CCCC;
-            color:#ffffff;
+        
+        #client th {
+            font-size: 1.1em;
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: #99CCCC;
+            color: #ffffff;
         }
-        #client tr.alt td
-        {
-            color:#000000;
-            background-color:#CCFFCC;
+        
+        #client tr.alt td {
+            color: #000000;
+            background-color: #CCFFCC;
         }
     </style>
 </head>
 
-    <script type="text/ng-template" id="viewSinglePiao.html">
+<script type="text/ng-template" id="viewSinglePiao.html">
     <div class="modal-header">
         <h3 class="modal-title" id="modal-title">库存票据详情</h3>
     </div>
@@ -49,7 +49,7 @@
             </tr>
             <tr>
                 <td>种类: </td>
-                <td>{{currentPiao.type}}</td>
+                <td>{{currentPiao.type| checkType}}</td>
             </tr>
             <tr>
                 <td>金额: </td>
@@ -75,16 +75,16 @@
 </header>
 
 
-        <div class="table-responsive">
-            <table class="table table-striped" id="client">
-                <tr>
-                    <th>金额(万)<a ng-click="getCurrentPiaoAmountUp()">^</a> <a ng-click="getCurrentPiaoAmountDown()">v</a></th>
-                    <th>到期日<a ng-click="getCurrentPiaoEndDateUp()">^</a> <a ng-click="getCurrentPiaoEndDateDown()">v</a></th>
-                    <th>银行</th>
-                    <th>种类</th>
-                    <th>   </th>
-                    <th ng-show="isAdmin">Actions</th>
-                </tr>
+<div class="table-responsive">
+    <table class="table table-striped" id="client">
+        <tr>
+            <th>金额(万)<a ng-click="getCurrentPiaoAmountUp()">^</a> <a ng-click="getCurrentPiaoAmountDown()">v</a></th>
+            <th>到期日<a ng-click="getCurrentPiaoEndDateUp()">^</a> <a ng-click="getCurrentPiaoEndDateDown()">v</a></th>
+            <th>银行</th>
+            <th>种类</th>
+            <th> </th>
+            <th ng-show="isAdmin">Actions</th>
+        </tr>
 
 
         <tr ng-repeat='piao in piaos'>
@@ -93,7 +93,7 @@
             <td ng-click="popupDetail(piao._id)">{{piao.bank}}</td>
 
             <td ng-click="popupDetail(piao._id)">{{piao.type | checkType}}</td>
-            <td >> </td>
+            <td>> </td>
             <td ng-show="isAdmin">
                 <div class="btn-group" uib-dropdown keyboard-nav>
                     <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>操作 <span class="caret"></span></button>
@@ -104,7 +104,7 @@
                         <li class="divider"></li>
                     </ul>
                 </div>
-<!--            <td ng-click="popupDetail(piao._id)">
+                <!--            <td ng-click="popupDetail(piao._id)">
                 {{piao.type| checkType}}
 
             </td>-->
