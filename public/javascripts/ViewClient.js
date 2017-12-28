@@ -1,6 +1,6 @@
-app.controller('ViewClient', ['$scope','$http', 'Piao', '$uibModal', function($scope, $http, Piao, $uibModal){
+app.controller('ViewClient', ['$scope', '$http', 'Piao', '$uibModal', function($scope, $http, Piao, $uibModal) {
 
-    $scope.focusingPiao={
+    $scope.focusingPiao = {
         "idNum": "请填写票号",
         "bank": "ICBC",
         "type": "dianpiao",
@@ -10,21 +10,22 @@ app.controller('ViewClient', ['$scope','$http', 'Piao', '$uibModal', function($s
         "isSold": false,
         "soldDate": "1970-01-18",
         "headerPhoto": ""
-    };npm
+    };
+    npm
 
-    $scope.piaos= Piao.piaos;
+    $scope.piaos = Piao.piaos;
 
-    $scope.getCurrentPiaos = function(){
+    $scope.getCurrentPiaos = function() {
         Piao.getAllCurrent();
         console.log($scope.piaos);
     };
 
-    $scope.getFocus = function(piaoId){
+    $scope.getFocus = function(piaoId) {
         $scope.focusingPiao = Piao.getById(piaoId);
     };
 
 
-    $scope.popupDetail = function (piaoId) {
+    $scope.popupDetail = function(piaoId) {
         var parentElem = undefined;
         var modalInst = $uibModal.open({
             animation: true,
@@ -35,15 +36,11 @@ app.controller('ViewClient', ['$scope','$http', 'Piao', '$uibModal', function($s
             size: 'lg',
             scope: $scope,
             resolve: {
-                item: function(){
+                item: function() {
                     return piaoId;
                 }
             }
         });
 
     };
-
-
-
-
 }]);

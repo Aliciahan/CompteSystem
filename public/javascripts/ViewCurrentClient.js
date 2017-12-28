@@ -93,6 +93,8 @@ app.controller('ViewCurrentClient', ['$scope', '$http', 'Piao', '$uibModal', fun
 
     var orderByAmountUp = true;
     var orderByEndDateUp = true;
+    var orderByType = true;
+    var orderByBank = true;
 
     vm.orderByEndDate = function() {
         if (orderByEndDateUp) {
@@ -112,6 +114,23 @@ app.controller('ViewCurrentClient', ['$scope', '$http', 'Piao', '$uibModal', fun
             orderByAmountUp = true;
         }
     };
-
+    vm.orderByType = function() {
+        if (orderByType) {
+            Piao.getAllCurrent("type-ace");
+            orderByType = false;
+        } else {
+            Piao.getAllCurrent("type-desc");
+            orderByType = true;
+        }
+    };
+    vm.orderByBank = function() {
+        if (orderByBank) {
+            Piao.getAllCurrent("bank-ace");
+            orderByBank = false;
+        } else {
+            Piao.getAllCurrent("bank-desc");
+            orderByBank = true;
+        }
+    };
     vm.getCurrentPiaos();
 }]);

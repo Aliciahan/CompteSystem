@@ -20,7 +20,7 @@
             text-align: left;
             padding-top: 5px;
             padding-bottom: 4px;
-            background-color: #99CCCC;
+            background-color: #337ab7;
             color: #ffffff;
         }
         
@@ -106,19 +106,19 @@
             </tr>
             <tr>
                 <td>到期日: </td>
-                <td>{{currentPiao.endDate| date:'MM/dd/yyyy'}}</td>
+                <td>{{currentPiao.endDate| date:'yyyy/MM/dd'}}</td>
             </tr>
             <tr>
-                <td>是否出票:</td>
-                <td>{{currentPiao.isSold}}</td>
+                <td>是否出库:</td>
+                <td>{{currentPiao.isSold| yesNoFilter }}</td>
             </tr>
             <tr>
                 <td>出票日期</td>
-                <td>{{currentPiao.soldDate| date:'MM/dd/yyyy'}}</td>
+                <td>{{currentPiao.soldDate| date:'yyyy/MM/dd'}}</td>
             </tr>
             <tr>
                 <td>入票日期</td>
-                <td>{{currentPiao.addDate| date:'MM/dd/yyyy'}}</td>
+                <td>{{currentPiao.addDate| date:'yyyy/MM/dd'}}</td>
             </tr>
         </table>
 
@@ -144,15 +144,15 @@
         <tr>
             <th ng-click="orderByAmount()">金额(万)</th>
             <th ng-click="orderByEndDate()">到期日 </th>
-            <th>银行</th>
-            <th>种类</th>
+            <th ng-click="orderByBank()">银行</th>
+            <th ng-click="orderByType()">种类</th>
             <th ng-show="isAdmin">Actions</th>
         </tr>
 
 
         <tr ng-repeat='piao in piaos'>
             <td ng-click="popupDetail(piao._id)">{{piao.amount}}</td>
-            <td ng-click="popupDetail(piao._id)">{{piao.endDate | date:'MM/dd/yyyy'}}</td>
+            <td ng-click="popupDetail(piao._id)">{{piao.endDate | date:'yyyy/MM/dd'}}</td>
             <td ng-click="popupDetail(piao._id)">{{piao.bank}}</td>
             <td ng-click="popupDetail(piao._id)">{{piao.type| checkType}}</td>
             <td ng-show="isAdmin">

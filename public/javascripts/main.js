@@ -34,7 +34,17 @@ app.filter('checkType', function() {
     };
 })
 
-
+app.filter('yesNoFilter', function() {
+    return function(input) {
+        var out = '';
+        if (input) {
+            out = "是";
+        } else {
+            out = "否";
+        }
+        return out;
+    };
+})
 
 app.factory('fileReader', ["$q", "$log", function($q, $log) {
     var onLoad = function(reader, deferred, scope) {
@@ -130,7 +140,7 @@ app.factory('auth', ['$http', '$window', function($http, $window) {
     };
 
     auth.register = function(user) {
-        return $http.post('http://localhost:3000/users/register', user).then(function(res) {
+        return $http.post('/users/register', user).then(function(res) {
             auth.saveToken(res.data.token);
         }, function(res) {
             console.log("err: " + res.data)
@@ -138,7 +148,7 @@ app.factory('auth', ['$http', '$window', function($http, $window) {
     };
 
     auth.adminreg = function(user) {
-        return $http.post('http://localhost:3000/users/admin-reg', user).then(function(res) {
+        return $http.post('/users/admin-reg', user).then(function(res) {
             auth.saveToken(res.data.token);
         }, function(res) {
             console.log("err: " + res.data)
@@ -146,14 +156,14 @@ app.factory('auth', ['$http', '$window', function($http, $window) {
     };
 
     auth.logIn = function(user) {
-        return $http.post('http://localhost:3000/users/login', user).then(function(res) {
+        return $http.post('/users/login', user).then(function(res) {
             auth.saveToken(res.data.token);
         });
     };
 
     auth.finished = function() {
         //$window.localStorage.removeItem("inscription-token");
-      delete localStorage['inscription-token'];
+        delete localStorage['inscription-token'];
     };
 
     return auth;
@@ -170,7 +180,7 @@ app.factory('Piao', ['$http', '$base64', 'auth', function($http, $base64, auth) 
     piaoObject.delOneById = function(piaoId) {
         $http({
             method: "DELETE",
-            headers: {Authorization: 'Bearer '+ auth.getToken()},
+            headers: { Authorization: 'Bearer ' + auth.getToken() },
             url: '../piao/' + piaoId.toString()
         }).then(function(res) {
             alert("Deleted!");
@@ -188,40 +198,40 @@ app.factory('Piao', ['$http', '$base64', 'auth', function($http, $base64, auth) 
     };
 
 
-  piaoObject.getAll = function(orderString) {
+    piaoObject.getAll = function(orderString) {
 
-    if(orderString){
-      return $http.get('../piao?order='+orderString).then(function(res) {
-        angular.copy(res.data, piaoObject.piaos)
-      }, function(res) {
-        console.log(res.data.toString());
-      });
-    } else{
-      return $http.get('../piao').then(function(res) {
-        angular.copy(res.data, piaoObject.piaos)
-      }, function(res) {
-        console.log(res.data.toString());
-      });
-    }
+        if (orderString) {
+            return $http.get('../piao?order=' + orderString).then(function(res) {
+                angular.copy(res.data, piaoObject.piaos)
+            }, function(res) {
+                console.log(res.data.toString());
+            });
+        } else {
+            return $http.get('../piao').then(function(res) {
+                angular.copy(res.data, piaoObject.piaos)
+            }, function(res) {
+                console.log(res.data.toString());
+            });
+        }
 
-  };
+    };
 
     piaoObject.getAllCurrent = function(orderString) {
-      if(orderString){
-        return $http.get('../piao/currentpiaos?order='+orderString).then(function(res) {
-            angular.copy(res.data, piaoObject.piaos);
-            return res.data;
-        }, function(res) {
-            console.log(res.data.toString());
-        });
-      }else{
-          return $http.get('../piao/currentpiaos').then(function(res) {
-            angular.copy(res.data, piaoObject.piaos);
-            return res.data;
-        }, function(res) {
-            console.log(res.data.toString());
-        });
-      }
+        if (orderString) {
+            return $http.get('../piao/currentpiaos?order=' + orderString).then(function(res) {
+                angular.copy(res.data, piaoObject.piaos);
+                return res.data;
+            }, function(res) {
+                console.log(res.data.toString());
+            });
+        } else {
+            return $http.get('../piao/currentpiaos').then(function(res) {
+                angular.copy(res.data, piaoObject.piaos);
+                return res.data;
+            }, function(res) {
+                console.log(res.data.toString());
+            });
+        }
 
     };
 
