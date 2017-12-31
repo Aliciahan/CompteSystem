@@ -14,31 +14,31 @@
 
             <tr>
                 <td>出票行: </td>
-                <td>{{pendingPiao.bank}}</td>
+                <td style="white-space:pre-wrap; word-wrap:break-word">{{pendingPiao.bank}}</td>
             </tr>
             <tr>
                 <td>种类: </td>
-                <td>{{pendingPiao.type}}</td>
+                <td>{{pendingPiao.type| checkType}}</td>
             </tr>
             <tr>
-                <td>金额: </td>
+                <td>金额（万元）: </td>
                 <td>{{pendingPiao.amount}}</td>
             </tr>
             <tr>
                 <td>买入时间: </td>
-                <td>{{pendingPiao.addDate}}</td>
+                <td>{{pendingPiao.addDate| date:'yyyy/MM/dd'}}</td>
             </tr>
             <tr>
                 <td>到期日: </td>
-                <td>{{pendingPiao.endDate}}</td>
+                <td>{{pendingPiao.endDate| date:'yyyy/MM/dd'}}</td>
             </tr>
             <tr>
                 <td>是否卖出:</td>
-                <td>{{pendingPiao.isSold}}</td>
+                <td>{{pendingPiao.isSold| yesNoFilter }}</td>
             </tr>
             <tr>
                 <td>卖出日期:</td>
-                <td>{{pendingPiao.soldDate}}</td>
+                <td>{{pendingPiao.soldDate| date:'yyyy/MM/dd'}}</td>
             </tr>
         </table>
 
@@ -46,7 +46,6 @@
 
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="$ctrl.continue()">继续上传其它票据</button>
         <button class="btn btn-warning" type="button" ng-click="$ctrl.exit()">离开页面</button>
     </div>
 </script>
@@ -56,56 +55,56 @@
     <h4>请填入票面数据</h4>
     <form role="form">
         <div class="form-group">
-        <label>票号</label>
-        <input type="text" class="form-control" placehoder="票据的编号" required ng-model="uploadingPiao.idNum">
+            <label>票号</label>
+            <input type="text" class="form-control" placehoder="票据的编号" required ng-model="uploadingPiao.idNum">
 
-        <label>出票行</label>
-        <input type="text" class="form-control" required ng-model="uploadingPiao.bank">
-        <label>金额（万）</label>
-        <input type="text" class="form-control" required ng-model="uploadingPiao.amount">
-        <label>票据类型:</label>
-        <select class="form-control" ng-model="uploadingPiao.type" ng-options="p as p.label for p in piaotypes track by p.id"></select>
-        <label>入票日期</label>
-        <p class="input-group">
-            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="uploadingPiao.addDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-            <span class="input-group-btn">
+            <label>出票行</label>
+            <input type="text" class="form-control" required ng-model="uploadingPiao.bank">
+            <label>金额（万）</label>
+            <input type="text" class="form-control" required ng-model="uploadingPiao.amount">
+            <label>票据类型:</label>
+            <select class="form-control" ng-model="uploadingPiao.type" ng-options="p as p.label for p in piaotypes track by p.id"></select>
+            <label>入票日期</label>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="uploadingPiao.addDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
-        </p>
-        <label>到期时间</label>
-        <p class="input-group">
-            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="uploadingPiao.endDate" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-            <span class="input-group-btn">
+            </p>
+            <label>到期时间</label>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="uploadingPiao.endDate" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
-        </p>
+            </p>
 
-        <label>票据图片</label>
-        <input type="file" file-model="myfile" />
-        <br/>
-
-        <div>
-            <input type="radio" id="isSoldOn" name="isSold" value="true" ng-click="setSold()"> <label for="isSoldOn">已经卖出</label>
-            <br/>
-            <input type="radio" id="isSoldOff" name="isSold" value="false" checked="true" ng-click="cancelSold()"> <label for="isSoldOff">尚未卖出 </label>
+            <label>票据图片</label>
+            <input type="file" file-model="myfile" />
             <br/>
 
-            <div ng-show="uploadingPiao.isSold">
-                <label>卖出时间</label>
-                <p class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="uploadingPiao.soldDate" is-open="popup3.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-                    <span class="input-group-btn">
+            <div>
+                <input type="radio" id="isSoldOn" name="isSold" value="true" ng-click="setSold()"> <label for="isSoldOn">已经卖出</label>
+                <br/>
+                <input type="radio" id="isSoldOff" name="isSold" value="false" checked="true" ng-click="cancelSold()"> <label for="isSoldOff">尚未卖出 </label>
+                <br/>
+
+                <div ng-show="uploadingPiao.isSold">
+                    <label>卖出时间</label>
+                    <p class="input-group">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="uploadingPiao.soldDate" is-open="popup3.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
-                </p>
+                    </p>
+                </div>
             </div>
-        </div>
 
 
-        <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">清空</button>
-        <button type="button" class="btn btn-sm btn-success" ng-click="save()">保存</button>
-        <button type="button" class="btn btn-sm btn-success" ng-hide="isEmpty()" ng-click="open()">检查最近一次上传的票据</button>
+            <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">清空</button>
+            <button type="button" class="btn btn-sm btn-success" ng-click="save()">保存</button>
+            <button type="button" class="btn btn-sm btn-success" ng-hide="isEmpty()" ng-click="open()">检查最近一次上传的票据</button>
     </form>
 
 
-</div>
+    </div>

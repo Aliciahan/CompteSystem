@@ -91,10 +91,6 @@ app.get('/', function redirectToAdmin(req, res, next) {
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', router);
-// route for add kucun
-app.get('/kc', function(req, res) {
-    res.redirect('kucun.html');
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

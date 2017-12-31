@@ -1,15 +1,13 @@
-app.controller('ViewCurrentCtrl', function($scope, $uibModalInstance, Piao, item){
+app.controller('ViewCurrentCtrl', function($scope, $uibModalInstance, Piao, item) {
 
-  $scope.currentPiao = Piao.one;
-  Piao.getById(item);
+    $scope.currentPiao = Piao.one;
+    Piao.getById(item);
 
-  console.log("context:"+item.toString());
+    $scope.continue = function() {
+        $uibModalInstance.close();
+    };
 
-  $scope.continue = function(){
-    $uibModalInstance.close();
-  };
-
-  $scope.getpiao = function(){
-    console.log("context:"+$scope.currentPiao);
-  }
+    $scope.getpiao = function() {
+        console.log("context:" + $scope.currentPiao);
+    }
 });

@@ -1,27 +1,15 @@
-//angular.module('frontapp')
 app.config(
     function($stateProvider, $interpolateProvider, $urlRouterProvider) {
         $interpolateProvider.startSymbol('{{');
         $interpolateProvider.endSymbol('}}');
 
-        $stateProvider.state('client', {
-            url: '',
-            templateUrl: './templates/clientView.html',
-            controller: 'ViewCurrentClient',
-            resolve: {
-                postPromise: ['Piao', function(Piao) {
-                    return Piao.getAllCurrent();
-                }]
-            }
-        });
-
         $stateProvider.state('root', {
-            url: '/nav',
+            url: '',
             templateUrl: './templates/navbar.html',
-            controller: 'AuthCtrl',
+            controller: 'NavCtrl'
         });
 
-        $stateProvider.state('kucun', {
+        $stateProvider.state('root.kucun', {
             url: '/kucun',
             templateUrl: './templates/clientView.html',
             controller: 'ViewCurrentClient',
@@ -32,38 +20,38 @@ app.config(
             }
         });
 
-        $stateProvider
-            .state('root.home', {
-                url: '/home',
-                templateUrl: "./templates/home.html",
-                controller: 'AuthCtrl',
-                onEnter: ['$state', 'auth', function($state, auth) {
-                    if (auth.isLoggedin()) {
-                        $state.go('root.home');
-                    }
-                }]
-            });
+        // $stateProvider
+        //     .state('root.home', {
+        //         url: '/home',
+        //         templateUrl: "./templates/home.html",
+        //         controller: 'AuthCtrl',
+        //         onEnter: ['$state', 'auth', function($state, auth) {
+        //             if (auth.isLoggedin()) {
+        //                 $state.go('root.home');
+        //             }
+        //         }]
+        //     });
 
         $stateProvider
-            .state('login', {
+            .state('root.login', {
                 url: '/login',
                 templateUrl: "./templates/login.html",
                 controller: 'AuthCtrl',
                 onEnter: ['$state', 'auth', function($state, auth) {
                     if (auth.isLoggedin()) {
-                        $state.go('root.home');
+                        $state.go('root');
                     }
                 }]
             });
 
         $stateProvider
-            .state('registry', {
+            .state('root.registry', {
                 url: '/registry',
                 templateUrl: "./templates/registry.html",
                 controller: 'AuthCtrl',
                 onEnter: ['$state', 'auth', function($state, auth) {
                     if (auth.isLoggedin()) {
-                        $state.go('root.home');
+                        $state.go('root');
                     }
                 }]
             });
@@ -75,7 +63,7 @@ app.config(
                 controller: 'AuthCtrl',
                 onEnter: ['$state', 'auth', function($state, auth) {
                     if (auth.isLoggedin()) {
-                        $state.go('root.home');
+                        $state.go('root');
                     }
                 }]
             });
@@ -105,6 +93,7 @@ app.config(
                 templateUrl: './templates/viewCurrent.html',
                 controller: 'ViewCurrent'
             });
+
         $stateProvider
             .state('root.check', {
                 url: '/check',
@@ -116,9 +105,6 @@ app.config(
                     }]
                 }
             });
-
-
-        $urlRouterProvider.otherwise('kucun')
-
+        $urlRouterProvider.otherwise('')
     }
 );

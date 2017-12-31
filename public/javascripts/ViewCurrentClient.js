@@ -17,15 +17,12 @@ app.controller('ViewCurrentClient', ['$scope', '$http', 'Piao', '$uibModal', fun
         var total = 0;
         Piao.piaos.forEach(function(item) {
             total += item.amount;
-            console.log("we are here!" + item.amount);
         });
         vm.amountTotal = total;
     };
 
     vm.piaos = Piao.piaos;
     vm.amountTotal;
-
-
 
     function sleep(delay) {
         return function() {
