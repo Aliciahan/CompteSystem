@@ -98,7 +98,7 @@
         </tr>
 
         <tr ng-repeat='piao in piaos'>
-            <td ng-click="popupDetail(piao._id)">{{piao.amount | number:2}}</td>
+            <td ng-click="popupDetail(piao._id)">{{piao.amount | number:6}}</td>
             <td ng-click="popupDetail(piao._id)" style="word-wrap: break-word;max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{piao.bank}}</td>
             <td ng-click="popupDetail(piao._id)">{{piao.endDate | date:'yyyy/MM/dd'}}</td>
             <!-- <td ng-click="popupDetail(piao._id)">{{piao.type | checkType}} <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i></td> -->
@@ -107,7 +107,7 @@
 </div>
 
 <footer>
-    <p><span class="glyphicon glyphicon-euro"></span> 票据总金额: {{amountTotal| number:2}} 万元 </p>
+    <p><span class="glyphicon glyphicon-euro"></span> 票据总金额: {{amountTotal| number:6}} 万元 </p>
 
     <p style="background-color:yellow">本公司长期收：大小纸票，电票，柜台票，流通票。流通纸票小行有优势，利率单定。欢迎电话联系！</p>
     <div class="row">
