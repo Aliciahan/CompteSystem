@@ -1,7 +1,7 @@
 // Controller for Nav Bar in route /nav
 
 
-angular.module('frontapp').controller('NavCtrl', ['$scope', 'auth', '$state', function($scope, auth, $state) {
+angular.module('frontapp').controller('NavCtrl', ['$scope', 'auth', '$state', '$location', function($scope, auth, $state, $location) {
 
     $scope.isLoggedin = auth.isLoggedin();
     $scope.currentUser = auth.current;
@@ -22,5 +22,10 @@ angular.module('frontapp').controller('NavCtrl', ['$scope', 'auth', '$state', fu
             //$state.go('root.home');
             location.reload();
         });
+    };
+
+    $scope.isActive = function(viewLocation) {
+        var active = (viewLocation === $location.path());
+        return active;
     };
 }]);

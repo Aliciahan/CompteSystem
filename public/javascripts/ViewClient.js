@@ -24,7 +24,6 @@ app.controller('ViewClient', ['$scope', '$http', 'Piao', '$uibModal', function($
         $scope.focusingPiao = Piao.getById(piaoId);
     };
 
-
     $scope.popupDetail = function(piaoId) {
         var parentElem = undefined;
         var modalInst = $uibModal.open({

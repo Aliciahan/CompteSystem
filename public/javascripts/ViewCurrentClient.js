@@ -1,6 +1,5 @@
-app.controller('ViewCurrentClient', ['$scope', '$http', 'Piao', '$uibModal', function($scope, $http, Piao, $uibModal) {
+app.controller('ViewCurrentClient', ['$scope', '$http', 'Piao', '$uibModal', 'filterFilter', function($scope, $http, Piao, $uibModal, filterFilter) {
     var vm = $scope;
-
     vm.focusingPiao = {
         "idNum": "请填写票号",
         "bank": "ICBC",
@@ -15,12 +14,13 @@ app.controller('ViewCurrentClient', ['$scope', '$http', 'Piao', '$uibModal', fun
 
     var getAmountTotal = function() {
         var total = 0;
-        Piao.piaos.forEach(function(item) {
+        vm.piaos.forEach(function(item) {
             total += item.amount;
         });
         vm.amountTotal = total;
     };
 
+    vm.piaosServer = Piao.piaos;
     vm.piaos = Piao.piaos;
     vm.amountTotal;
 
@@ -86,6 +86,15 @@ app.controller('ViewCurrentClient', ['$scope', '$http', 'Piao', '$uibModal', fun
         } else {
 
         }
+    };
+
+    $scope.typeFilter = function(clientType) {
+        if (clientType != '') {
+            vm.piaos = filterFilter(vm.piaosServer, { type: clientType });
+        } else {
+            vm.piaos = vm.piaosServer;
+        }
+        getAmountTotal();
     };
 
     var orderByAmountUp = true;

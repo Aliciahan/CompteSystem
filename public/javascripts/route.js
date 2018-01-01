@@ -70,7 +70,7 @@ app.config(
 
         $stateProvider
             .state('root.piao', {
-                url: '/piaos',
+                url: '/piao',
                 templateUrl: './templates/piaoGetAll.html',
                 controller: 'piaoGetAll',
                 resolve: {
@@ -88,8 +88,8 @@ app.config(
             });
 
         $stateProvider
-            .state('root.viewcurrent', {
-                url: '/viewcurrent',
+            .state('root.piaos', {
+                url: '/piaos',
                 templateUrl: './templates/viewCurrent.html',
                 controller: 'ViewCurrent'
             });
